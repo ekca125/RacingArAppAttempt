@@ -23,6 +23,7 @@ public class GraalTest {
             Value accumulatorFunc = context.getBindings("js").getMember("accumulator");
             int result = accumulatorFunc.execute(1, 2).asInt();
             System.out.println("result: " + result);
+            context.eval("js", "print( Math.min(2, 3) )");
         } catch (IOException e) {
             e.printStackTrace();
         }
