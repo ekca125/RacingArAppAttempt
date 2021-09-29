@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 String source = bufferedReader.lines().collect(Collectors.joining("\n"));
                 Log.d("Greeting", engine.evaluate(source).toString());
 
-                engine.
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
