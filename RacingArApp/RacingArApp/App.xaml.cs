@@ -15,7 +15,7 @@ namespace RacingArApp
         public App()
         {
             //Register Syncfusion license
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(KeyStorageSyncFusion.getKey());
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(KeyStorageSyncFusion.GetKey());
 
             InitializeComponent();
 
