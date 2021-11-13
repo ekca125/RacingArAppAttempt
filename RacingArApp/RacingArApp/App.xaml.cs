@@ -14,6 +14,8 @@ namespace RacingArApp
         public static string ImageServerPath { get; } = "https://cdn.syncfusion.com/essential-ui-kit-for-xamarin.forms/common/uikitimages/";
         public App()
         {
+            //Register Syncfusion license
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(KeyStorageSyncFusion.getKey());
 
             InitializeComponent();
 
