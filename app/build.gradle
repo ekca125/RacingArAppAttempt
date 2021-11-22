@@ -4,7 +4,7 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        applicationId "com.material.components"
+        applicationId "net.ekcapaper.racingar.components"
         minSdkVersion 19
         targetSdkVersion 31
         versionCode 280
@@ -69,3 +69,25 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.2.3'
 }
 
+dependencies {
+    // add by user
+    implementation 'com.github.heroiclabs.nakama-java:nakama-java-all:2.1.4'
+}
+
+// test framework
+android {
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
+dependencies {
+    // Required for local unit tests (JUnit 4 framework)
+    testImplementation 'junit:junit:4.13.2'
+
+    // Required for instrumented tests
+    androidTestImplementation 'com.android.support:support-annotations:28.0.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
