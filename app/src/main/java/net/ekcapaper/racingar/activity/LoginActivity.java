@@ -1,6 +1,7 @@
 package net.ekcapaper.racingar.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.balysv.materialripple.MaterialRippleLayout;
@@ -11,6 +12,7 @@ import net.ekcapaper.racingar.components.R;
 import net.ekcapaper.racingar.components.activity.login.LoginCardLight;
 import net.ekcapaper.racingar.components.data.ThisApplication;
 
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,13 +35,15 @@ public class LoginActivity extends LoginCardLight {
             @Override
             public void onClick(View v) {
                 executorService.execute(() -> {
-                    String email = loginInputEmail.toString();
-                    String password = loginInputPassword.toString();
+                    String email = Objects.requireNonNull(loginInputEmail.getText()).toString();
+                    String password = Objects.requireNonNull(loginInputPassword.getText()).toString();
 
                     ThisApplication thisApplication = (ThisApplication) (LoginActivity.this.getApplication());
+
                     boolean result = thisApplication.getGameAppOperator().authEmail(email, password);
                     if (result) {
                         runOnUiThread(() -> {
+                            //start next activity
                             Snackbar.make(parent_view, "Login Success", Snackbar.LENGTH_SHORT).show();
                         });
                     } else {
