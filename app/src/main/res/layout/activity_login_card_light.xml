@@ -156,6 +156,7 @@
     </RelativeLayout>
 
     <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/login_layout"
         style="@style/RippleStyleWhite"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
