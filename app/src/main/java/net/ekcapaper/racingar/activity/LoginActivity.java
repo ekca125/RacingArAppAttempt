@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import net.ekcapaper.racingar.components.R;
@@ -31,15 +32,25 @@ public class LoginActivity extends LoginCardLight {
         this.loginLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                executorService.execute(()->{
+                executorService.execute(() -> {
                     String email = loginInputEmail.toString();
                     String password = loginInputPassword.toString();
 
                     ThisApplication thisApplication = (ThisApplication) (LoginActivity.this.getApplication());
-                    boolean result = thisApplication.getGameAppOperator().authEmail(email,password);
-                    
+                    boolean result = thisApplication.getGameAppOperator().authEmail(email, password);
+                    if (result) {
+                        runOnUiThread(() -> {
+                            Snackbar.make(parent_view, "Login Success", Snackbar.LENGTH_SHORT).show();
+                        });
+                    } else {
+                        runOnUiThread(() -> {
+                            Snackbar.make(parent_view, "Login Fail", Snackbar.LENGTH_SHORT).show();
+                        });
+                    }
                 });
             }
         });
+        this.loginInputEmail.setText("abcd@gmail.com");
+        this.loginInputPassword.setText("abcd1234");
     }
 }
