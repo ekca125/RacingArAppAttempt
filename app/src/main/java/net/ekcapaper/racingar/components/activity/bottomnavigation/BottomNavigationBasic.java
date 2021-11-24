@@ -66,7 +66,7 @@ public class BottomNavigationBasic extends AppCompatActivity {
             }
         });
 
-        // display image
+        // display imag
         Tools.displayImageOriginal(this, (ImageView) findViewById(R.id.image_1), R.drawable.image_8);
         Tools.displayImageOriginal(this, (ImageView) findViewById(R.id.image_2), R.drawable.image_9);
         Tools.displayImageOriginal(this, (ImageView) findViewById(R.id.image_3), R.drawable.image_15);
