@@ -1,5 +1,6 @@
 package net.ekcapaper.racingar.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,8 +48,10 @@ public class LoginActivity extends LoginCardLight {
                     if (result) {
                         runOnUiThread(() -> {
                             //start next activity
-                            Snackbar.make(parent_view, "Login Success", Snackbar.LENGTH_SHORT).show();
+                            //Snackbar.make(parent_view, "Login Success", Snackbar.LENGTH_SHORT).show();
                             loginLayout.setClickable(true);
+                            Intent intent = new Intent(LoginActivity.this,GameSelectionActivity.class);
+                            startActivity(intent);
                         });
                     } else {
                         runOnUiThread(() -> {
