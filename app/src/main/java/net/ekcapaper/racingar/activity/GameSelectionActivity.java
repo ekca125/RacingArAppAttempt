@@ -1,5 +1,6 @@
 package net.ekcapaper.racingar.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,11 +15,19 @@ import net.ekcapaper.racingar.components.activity.card.CardBasic;
 import net.ekcapaper.racingar.components.activity.list.ListNewsCard;
 import net.ekcapaper.racingar.components.activity.tabs.TabsBasic;
 
-public class GameSelectionActivity extends ListNewsCard {
+public class GameSelectionActivity extends CardBasic {
+    CardView cardViewGameModeSingle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        cardViewGameModeSingle = findViewById(R.id.card_view_game_mode_single);
+        cardViewGameModeSingle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameSelectionActivity.this,GameSingleActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

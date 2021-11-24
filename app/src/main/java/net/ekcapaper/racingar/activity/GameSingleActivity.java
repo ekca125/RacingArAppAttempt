@@ -1,5 +1,6 @@
 package net.ekcapaper.racingar.activity;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,6 +24,8 @@ import net.ekcapaper.racingar.components.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import afu.org.checkerframework.checker.igj.qual.I;
 
 public class GameSingleActivity extends AppCompatActivity {
 
@@ -55,8 +58,12 @@ public class GameSingleActivity extends AppCompatActivity {
 
     private List<News> stubNewsList(){
         List<News> items = new ArrayList<>();
-        for(Integer i=0;i<5;i++){
-            News item = new News();
+        News item = new News();
+        item.title="New Start";
+        items.add(item);
+
+        for(Integer i=1;i<5;i++){
+            item = new News();
             item.title=i.toString();
             items.add(item);
         }
@@ -67,7 +74,7 @@ public class GameSingleActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        
+
         List<News> items = this.stubNewsList();
 
         //set data and list adapter
@@ -78,7 +85,15 @@ public class GameSingleActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new AdapterListNews.OnItemClickListener() {
             @Override
             public void onItemClick(View view, News obj, int position) {
-                Snackbar.make(parent_view, "Item " + obj.title + " clicked", Snackbar.LENGTH_SHORT).show();
+                if(position == 0){
+                    //0번째 포지션은 클릭시에 새로 생성하는 것으로 한다.
+                    Snackbar.make(parent_view, "Item " + obj.title + "new start clicked", Snackbar.LENGTH_SHORT).show();
+                    Intent intent = new Intent(GameSingleActivity.this,GameFormActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Snackbar.make(parent_view, "Item " + obj.title + "saved start clicked", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
 
