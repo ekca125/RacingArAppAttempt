@@ -35,20 +35,25 @@ public class LoginActivity extends LoginCardLight {
             @Override
             public void onClick(View v) {
                 executorService.execute(() -> {
+                    runOnUiThread(()->{
+                        loginLayout.setClickable(false);
+                    });
+
                     String email = Objects.requireNonNull(loginInputEmail.getText()).toString();
                     String password = Objects.requireNonNull(loginInputPassword.getText()).toString();
 
                     ThisApplication thisApplication = (ThisApplication) (LoginActivity.this.getApplication());
-
                     boolean result = thisApplication.getGameAppOperator().authEmail(email, password);
                     if (result) {
                         runOnUiThread(() -> {
                             //start next activity
                             Snackbar.make(parent_view, "Login Success", Snackbar.LENGTH_SHORT).show();
+                            loginLayout.setClickable(true);
                         });
                     } else {
                         runOnUiThread(() -> {
                             Snackbar.make(parent_view, "Login Fail", Snackbar.LENGTH_SHORT).show();
+                            loginLayout.setClickable(true);
                         });
                     }
                 });
