@@ -48,9 +48,8 @@ public class LoginActivity extends LoginCardLight {
                     if (result) {
                         runOnUiThread(() -> {
                             //start next activity
-                            //Snackbar.make(parent_view, "Login Success", Snackbar.LENGTH_SHORT).show();
                             loginLayout.setClickable(true);
-                            Intent intent = new Intent(LoginActivity.this,GameSelectionActivity.class);
+                            Intent intent = new Intent(LoginActivity.this,GameLobbyActivity.class);
                             startActivity(intent);
                         });
                     } else {
