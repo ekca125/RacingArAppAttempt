@@ -42,9 +42,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="net.ekcapaper.racingar.activity.GameSingleActivity"
-            android:screenOrientation="portrait" />
+
 
         <activity
             android:name="net.ekcapaper.racingar.activity.GameFormActivity"
