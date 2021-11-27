@@ -58,10 +58,9 @@ public class AdapterListBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder,int positionTemp) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof OriginalViewHolder) {
             OriginalViewHolder view = (OriginalViewHolder) holder;
-            int position = holder.getAdapterPosition();
 
             People p = items.get(position);
             view.name.setText(p.name);

@@ -10,7 +10,7 @@ import net.ekcapaper.racingar.components.utils.Tools;
 
 public class LoginCardLight extends AppCompatActivity {
 
-    protected View parent_view;
+    private View parent_view;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
