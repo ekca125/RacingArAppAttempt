@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "net.ekcapaper.racingar.components"
-        minSdkVersion 19
+        minSdkVersion 30
         targetSdkVersion 31
         versionCode 280
         versionName "2.8"
@@ -72,6 +72,10 @@ dependencies {
 dependencies {
     // add by user
     implementation 'com.github.heroiclabs.nakama-java:nakama-java-all:2.1.4'
+}
+
+dependencies {
+    implementation 'com.google.maps.android:android-maps-utils:2.2.3'
 }
 
 // test framework

@@ -20,5 +20,6 @@
     <string name="app_version">Version</string>
     <string name="default_notification_channel_id">Default</string>
     <string name="webview_loading">Load Content... </string>
+    <string name="game_mode_single">SingleMode</string>
 
 </resources>
