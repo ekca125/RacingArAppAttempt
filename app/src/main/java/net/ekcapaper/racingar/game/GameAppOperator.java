@@ -15,8 +15,8 @@ public class GameAppOperator {
     private Session session;
     public GameAppOperator(){
         String serverKey = KeyStorageNakama.getServerKey();
-        String nodeAddress = KeyStorageNakama.getNodeAddress();
-        int portNumber = KeyStorageNakama.getPortNumber();
+        String nodeAddress = KeyStorageNakama.getGrpcAddress();
+        int portNumber = KeyStorageNakama.getGrpcPort();
 
         client = new DefaultClient(serverKey,nodeAddress,portNumber,true);
     }
