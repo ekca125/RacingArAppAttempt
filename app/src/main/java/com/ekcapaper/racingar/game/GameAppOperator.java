@@ -20,12 +20,20 @@ public class GameAppOperator extends NakamaNetworkManager {
         currentGameRoomOperator = null;
     }
 
-    public void makeSingleRoom() throws ExecutionException, InterruptedException {
-        currentGameRoomOperator = new SingleGameRoomOperator(socketClient);
-        currentGameRoomOperator.createMatch();
+    public void makeSingleRoom(){
+        try {
+            currentGameRoomOperator = new SingleGameRoomOperator(socketClient);
+            currentGameRoomOperator.createMatch();
+            // 서버에서 맵을 생성하여 받아오기
+
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            currentGameRoomOperator = null;
+        }
     }
 
     public GameRoomOperator getCurrentGameRoomOperator(){
         return currentGameRoomOperator;
     }
+
 }

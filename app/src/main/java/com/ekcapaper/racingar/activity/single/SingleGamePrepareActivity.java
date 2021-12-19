@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.ekcapaper.racingar.game.GameAppOperator;
 import com.material.components.R;
+import com.material.components.data.ThisApplication;
 
 public class SingleGamePrepareActivity extends AppCompatActivity {
+    GameAppOperator gameAppOperator;
     ProgressBar single_game_prepare_progress_indeterminate_circular;
 
     @Override
@@ -16,9 +20,12 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_game_prepare);
 
+        gameAppOperator = ((ThisApplication)getApplication()).getGameAppOperator();
+
         single_game_prepare_progress_indeterminate_circular =
                 findViewById(R.id.single_game_prepare_progress_indeterminate_circular);
         runProgressDeterminateCircular();
+        runMakeRoom();
     }
 
     private void runProgressDeterminateCircular() {
@@ -34,5 +41,15 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
             }
         };
         mHandler.post(runnable);
+    }
+
+    private void runMakeRoom(){
+        gameAppOperator.makeSingleRoom();
+        if(gameAppOperator.checkCurrentGameRoomOperator()){
+            Toast.makeText(this,"Start Game", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this,"Make Room Failed",Toast.LENGTH_SHORT).show();
+        }
     }
 }
