@@ -19,6 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name="com.ekcapaper.racingar.activity.GameSelectionActivity"
+            android:exported="false" />
+        <activity
             android:name="com.ekcapaper.racingar.activity.LoginEmailActivity"
             android:exported="true">
             <intent-filter>
@@ -1238,9 +1241,7 @@
         <activity
             android:name=".activity.MainMenu"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
