@@ -51,7 +51,7 @@ public class LoginEmailActivity extends AppCompatActivity {
             gameAppOperator.loginEmail(email, password);
             Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(LoginEmailActivity.this, LoginBigImage.class);
+            Intent intent = new Intent(LoginEmailActivity.this, GameSelectionActivity.class);
             startActivity(intent);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
