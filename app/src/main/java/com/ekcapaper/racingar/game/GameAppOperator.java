@@ -2,6 +2,8 @@ package com.ekcapaper.racingar.game;
 
 import android.location.Location;
 
+import com.ekcapaper.racingar.maptool.MeterToLatitudeConverter;
+import com.ekcapaper.racingar.maptool.MeterToLongitudeConverter;
 import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
 
 import java.util.concurrent.ExecutionException;
@@ -9,9 +11,9 @@ import java.util.concurrent.ExecutionException;
 public class GameAppOperator extends NakamaNetworkManager {
     private GameRoomOperator currentGameRoomOperator;
 
-    // 기본 위치
-    private double defaultRangeKilometer;
-
+    // 맵의 크기 : 플레이어의 위치를 중앙으로 하고 가로 세로가 1km인 정사각형
+    // 맵의 시작위치는 왼쪽아래이며 맵의 끝위치는 오른쪽위이다.
+    private double defaultMapSize = 1;
 
     public GameAppOperator() {
         super();
@@ -25,6 +27,24 @@ public class GameAppOperator extends NakamaNetworkManager {
         currentGameRoomOperator.leaveRoom();
         currentGameRoomOperator = null;
     }
+
+    private void makeMap(Location location){
+        double currentLatitude = location.getLatitude();
+        double currentLongitude = location.getLongitude();
+
+        MeterToLatitudeConverter meterToLatitudeConverter = new MeterToLatitudeConverter();
+        MeterToLongitudeConverter meterToLongitudeConverter = new MeterToLongitudeConverter(currentLatitude);
+
+        double distanceMeter = defaultMapSize/2;
+
+        double startLatitude = currentLatitude - meterToLatitudeConverter.convertMeterToLatitude(distanceMeter);
+        double startLongitude = currentLongitude - meterToLongitudeConverter.convertMeterToLongitude(distanceMeter);
+        double endLatitude = currentLatitude + meterToLatitudeConverter.convertMeterToLatitude(distanceMeter);
+        double endLongitude =  currentLongitude + meterToLongitudeConverter.convertMeterToLongitude(distanceMeter);
+
+        // return Map
+    }
+
 
     public void makeSingleRoom(Location location){
         try {
