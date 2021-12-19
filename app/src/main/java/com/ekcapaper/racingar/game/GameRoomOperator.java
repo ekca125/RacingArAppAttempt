@@ -1,4 +1,4 @@
-package com.ekcapaper.game;
+package com.ekcapaper.racingar.game;
 
 import com.heroiclabs.nakama.Match;
 import com.heroiclabs.nakama.SocketClient;

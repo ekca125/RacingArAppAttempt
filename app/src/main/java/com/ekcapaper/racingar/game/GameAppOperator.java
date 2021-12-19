@@ -1,11 +1,6 @@
-package com.ekcapaper.game;
+package com.ekcapaper.racingar.game;
 
-import com.heroiclabs.nakama.Client;
-import com.heroiclabs.nakama.DefaultClient;
-import com.heroiclabs.nakama.Session;
-
-import net.ekcapaper.racingar.keystorage.KeyStorageNakama;
-import net.ekcapaper.racingar.nakama.NakamaNetworkManager;
+import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
 
 import java.util.concurrent.ExecutionException;
 

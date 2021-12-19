@@ -1,6 +1,6 @@
-package com.ekcapaper.nakama;
+package com.ekcapaper.racingar.nakama;
 
-import com.ekcapaper.keystorage.KeyStorageNakama;
+import com.ekcapaper.racingar.keystorage.KeyStorageNakama;
 import com.heroiclabs.nakama.AbstractSocketListener;
 import com.heroiclabs.nakama.Client;
 import com.heroiclabs.nakama.DefaultClient;
@@ -8,9 +8,7 @@ import com.heroiclabs.nakama.Session;
 import com.heroiclabs.nakama.SocketClient;
 import com.heroiclabs.nakama.SocketListener;
 
-import java.security.Key;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Consumer;
 
 public class NakamaNetworkManager {
     protected Client client;
