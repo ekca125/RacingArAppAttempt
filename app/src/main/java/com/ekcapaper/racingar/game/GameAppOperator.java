@@ -6,7 +6,10 @@ import com.ekcapaper.racingar.maptool.MapRange;
 import com.ekcapaper.racingar.maptool.MeterToLatitudeConverter;
 import com.ekcapaper.racingar.maptool.MeterToLongitudeConverter;
 import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
+import com.google.gson.Gson;
 
+import java.net.URLConnection;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class GameAppOperator extends NakamaNetworkManager {
@@ -52,9 +55,10 @@ public class GameAppOperator extends NakamaNetworkManager {
             currentGameRoomOperator = new SingleGameRoomOperator(socketClient);
             currentGameRoomOperator.createMatch();
             // range map 생성
-
+            MapRange mapRange = getMapRange(location);
             // 서버에서 맵을 생성하여 받아오기(정사각형 모양으로 1km내의 주소에서 랜덤으로 추출한다.)
             // Json으로 값을 전달하여 받아온다.
+            String jsonMapRange = new Gson().toJson(mapRange);
 
 
         } catch (ExecutionException | InterruptedException e) {
