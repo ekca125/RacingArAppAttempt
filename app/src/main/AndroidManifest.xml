@@ -20,7 +20,13 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name="com.ekcapaper.racingar.activity.LoginEmailActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.profile.ProfileRealEstate"
             android:screenOrientation="portrait" />
@@ -1233,11 +1239,7 @@
             android:name=".activity.MainMenu"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
