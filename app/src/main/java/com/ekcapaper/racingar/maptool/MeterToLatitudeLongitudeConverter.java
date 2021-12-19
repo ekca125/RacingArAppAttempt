@@ -1,0 +1,18 @@
+package com.ekcapaper.racingar.maptool;
+
+public class MeterToLatitudeLongitudeConverter {
+    // 근사값
+    // 위도 1분 = 111.32 km
+    // 경도 1분 = 40075 km * cos( latitude ) / 360
+
+    // 한국 (위도 = 37)
+    // 위도 1분 = 111.32 km
+    // 경도 1분 = 88.90km
+
+    // 위도 1초 = 0.0309 km = 30m
+    // 경도 1초 = 0.024km = 24m
+
+
+
+
+}

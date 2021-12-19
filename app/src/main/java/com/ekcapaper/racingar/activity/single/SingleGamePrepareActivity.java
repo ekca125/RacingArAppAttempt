@@ -31,6 +31,8 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
     GameAppOperator gameAppOperator;
     ProgressBar single_game_prepare_progress_indeterminate_circular;
 
+    final int LOCATION_PERMISSON_REQUEST_CODE = 2;
+
     String[] permissions = new String[]{
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -51,17 +53,14 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
         runPrepareProgress();
     }
 
+    @AfterPermissionGranted(LOCATION_PERMISSON_REQUEST_CODE)
     private void runPrepareProgress() {
+        // 권한 체크
         if (EasyPermissions.hasPermissions(this, permissions)) {
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+            // 권한 체크 2
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             fusedLocationClient.getLastLocation()
@@ -73,7 +72,12 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
                         }
                     });
         }
-
+        else{
+            // 권한이 없는 경우
+            EasyPermissions.requestPermissions(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION.toString(),
+                    LOCATION_PERMISSON_REQUEST_CODE, permissions);
+        }
     }
 
     private void runProgressDeterminateCircular() {
@@ -93,7 +97,6 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
 
     private void runMakeRoomProgress(Location location) {
         // 위치를 전달하여 방을 생성하기
-        //gameAppOperator.makeSingleRoom(위치);
         gameAppOperator.makeSingleRoom(location);
         if(gameAppOperator.checkCurrentGameRoomOperator()){
             Toast.makeText(this,"Start Game", Toast.LENGTH_SHORT).show();
