@@ -2,6 +2,7 @@ package com.ekcapaper.racingar.game;
 
 import android.location.Location;
 
+import com.ekcapaper.racingar.maptool.MapRange;
 import com.ekcapaper.racingar.maptool.MeterToLatitudeConverter;
 import com.ekcapaper.racingar.maptool.MeterToLongitudeConverter;
 import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
@@ -13,7 +14,7 @@ public class GameAppOperator extends NakamaNetworkManager {
 
     // 맵의 크기 : 플레이어의 위치를 중앙으로 하고 가로 세로가 1km인 정사각형
     // 맵의 시작위치는 왼쪽아래이며 맵의 끝위치는 오른쪽위이다.
-    private double defaultMapSize = 1;
+    final private double defaultMapSize = 1;
 
     public GameAppOperator() {
         super();
@@ -28,7 +29,7 @@ public class GameAppOperator extends NakamaNetworkManager {
         currentGameRoomOperator = null;
     }
 
-    private void makeMap(Location location){
+    private MapRange getMapRange(Location location){
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
 
@@ -42,7 +43,7 @@ public class GameAppOperator extends NakamaNetworkManager {
         double endLatitude = currentLatitude + meterToLatitudeConverter.convertMeterToLatitude(distanceMeter);
         double endLongitude =  currentLongitude + meterToLongitudeConverter.convertMeterToLongitude(distanceMeter);
 
-        // return Map
+        return new MapRange(startLatitude,startLongitude,endLatitude,endLongitude);
     }
 
 
@@ -50,13 +51,12 @@ public class GameAppOperator extends NakamaNetworkManager {
         try {
             currentGameRoomOperator = new SingleGameRoomOperator(socketClient);
             currentGameRoomOperator.createMatch();
+            // range map 생성
 
-            
-            // 서버에서 맵을 생성하여 받아오기
-
-            // 정사각형 모양으로 1km내의 주소에서 랜덤으로 추출한다.
-
+            // 서버에서 맵을 생성하여 받아오기(정사각형 모양으로 1km내의 주소에서 랜덤으로 추출한다.)
             // Json으로 값을 전달하여 받아온다.
+
+
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             currentGameRoomOperator = null;
