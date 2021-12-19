@@ -71,6 +71,9 @@ dependencies {
 
     // nakama
     implementation 'com.github.heroiclabs.nakama-java:nakama-java:2.1.4'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 }
 
 // test framework
