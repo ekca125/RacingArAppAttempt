@@ -6,11 +6,13 @@ import com.ekcapaper.racingar.maptool.MapRange;
 import com.ekcapaper.racingar.maptool.MeterToLatitudeConverter;
 import com.ekcapaper.racingar.maptool.MeterToLongitudeConverter;
 import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
+import com.ekcapaper.racingar.retrofit.MapAddressService;
 import com.google.gson.Gson;
 
-import java.net.URLConnection;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
 
 public class GameAppOperator extends NakamaNetworkManager {
     private GameRoomOperator currentGameRoomOperator;
@@ -60,6 +62,12 @@ public class GameAppOperator extends NakamaNetworkManager {
             // Json으로 값을 전달하여 받아온다.
             String jsonMapRange = new Gson().toJson(mapRange);
             // Http로 값 받아오기
+            // 테스트 필요
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://rawb.ekcapaper.net")
+                    .build();
+            MapAddressService mapAddressService = retrofit.create(MapAddressService.class);
+            Call<String> mapAddressJsonString = mapAddressService.getMapAddress(jsonMapRange);
 
             // 액티비티를 시작한다. 이후의 처리는 액티비티 내부의 변수로 지정된 GameRoomOperator에게 넘긴다.
 
