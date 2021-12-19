@@ -19,6 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name="com.ekcapaper.racingar.activity.LoginEmailActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.profile.ProfileRealEstate"
             android:screenOrientation="portrait" />
         <activity
@@ -1232,6 +1235,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
