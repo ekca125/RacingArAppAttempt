@@ -1,7 +1,6 @@
 package com.ekcapaper.racingar.maptool;
 
-public class MeterToLatitudeLongitudeConverter {
-    // 근사값
+public class MeterToLongitudeConverter {// 근사값
     // 위도 1분 = 111.32 km
     // 경도 1분 = 40075 km * cos( latitude ) / 360
 
@@ -11,8 +10,5 @@ public class MeterToLatitudeLongitudeConverter {
 
     // 위도 1초 = 0.0309 km = 30m
     // 경도 1초 = 0.024km = 24m
-
-
-
 
 }
