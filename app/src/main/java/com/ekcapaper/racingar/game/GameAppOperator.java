@@ -59,7 +59,9 @@ public class GameAppOperator extends NakamaNetworkManager {
             // 서버에서 맵을 생성하여 받아오기(정사각형 모양으로 1km내의 주소에서 랜덤으로 추출한다.)
             // Json으로 값을 전달하여 받아온다.
             String jsonMapRange = new Gson().toJson(mapRange);
+            // Http로 값 받아오기
 
+            // 액티비티를 시작한다. 이후의 처리는 액티비티 내부의 변수로 지정된 GameRoomOperator에게 넘긴다.
 
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
