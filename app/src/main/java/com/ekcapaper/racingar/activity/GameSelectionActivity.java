@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ekcapaper.racingar.activity.single.SingleGamePrepareActivity;
-import com.ekcapaper.material.components.R;
+import com.ekcapaper.racingar.components.R;
 
 public class GameSelectionActivity extends AppCompatActivity {
     Button button_start_single_game;

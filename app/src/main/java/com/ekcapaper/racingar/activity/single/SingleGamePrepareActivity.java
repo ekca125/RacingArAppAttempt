@@ -16,8 +16,8 @@ import com.ekcapaper.racingar.game.GameAppOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.ekcapaper.material.components.R;
-import com.ekcapaper.material.components.data.ThisApplication;
+import com.ekcapaper.racingar.components.R;
+import com.ekcapaper.racingar.components.data.ThisApplication;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
