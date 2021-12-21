@@ -35,7 +35,7 @@ public class FlagGameBoard extends GameBoard{
     }
 
     void drawFlags(){
-        if(addressDtoList == null){
+        if(!isDrew()){
             try {
                 Call<String> call = RetrofitRwabClient
                         .getMapAddressService()
