@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application
         android:name=".data.ThisApplication"
         android:allowBackup="true"
@@ -18,6 +19,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.ekcapaper.racingar.activity.single.SingleGamePrepareActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ekcapaper.racingar.activity.GameSelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ekcapaper.racingar.activity.LoginEmailActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.profile.ProfileRealEstate"
             android:screenOrientation="portrait" />
@@ -1229,12 +1245,7 @@
         <activity
             android:name=".activity.MainMenu"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

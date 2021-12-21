@@ -5,8 +5,10 @@ import android.content.Context;
 
 import androidx.multidex.MultiDex;
 
-public class ThisApplication extends Application {
+import com.ekcapaper.racingar.game.GameAppOperator;
 
+public class ThisApplication extends Application {
+    GameAppOperator gameAppOperator;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -17,6 +19,11 @@ public class ThisApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        this.gameAppOperator = new GameAppOperator();
+        this.gameAppOperator.makeClient();
     }
 
+    public GameAppOperator getGameAppOperator() {
+        return gameAppOperator;
+    }
 }
