@@ -31,6 +31,7 @@ public class SingleGameMapActivity extends AppCompatActivity {
         initMapFragment();
         Tools.setSystemBarColor(this, R.color.colorPrimary);
 
+        /*
         if(((ThisApplication)getApplicationContext())
                 .getGameAppOperator()
                 .checkCurrentGameRoomOperator()){
@@ -42,6 +43,8 @@ public class SingleGameMapActivity extends AppCompatActivity {
             // 없는 경우에는 종료
             finish();
         }
+
+         */
     }
 
     private void initMapFragment() {
