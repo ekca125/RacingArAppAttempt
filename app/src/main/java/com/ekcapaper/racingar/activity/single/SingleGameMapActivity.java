@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ekcapaper.racingar.game.GameRoomOperator;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,10 +16,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.material.components.R;
+import com.material.components.data.ThisApplication;
 import com.material.components.utils.Tools;
 
 public class SingleGameMapActivity extends AppCompatActivity {
-
+    private GameRoomOperator gameRoomOperator;
     private GoogleMap mMap;
 
     @Override
@@ -28,6 +30,18 @@ public class SingleGameMapActivity extends AppCompatActivity {
 
         initMapFragment();
         Tools.setSystemBarColor(this, R.color.colorPrimary);
+
+        if(((ThisApplication)getApplicationContext())
+                .getGameAppOperator()
+                .checkCurrentGameRoomOperator()){
+            this.gameRoomOperator = ((ThisApplication)getApplicationContext())
+                    .getGameAppOperator()
+                    .getCurrentGameRoomOperator();
+        }
+        else{
+            // 없는 경우에는 종료
+            finish();
+        }
     }
 
     private void initMapFragment() {
