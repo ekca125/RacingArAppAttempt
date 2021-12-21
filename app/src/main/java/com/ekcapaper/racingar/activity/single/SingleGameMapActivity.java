@@ -15,9 +15,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.ekcapaper.racingar.components.R;
-import com.ekcapaper.racingar.components.data.ThisApplication;
-import com.ekcapaper.racingar.components.utils.Tools;
+import com.ekcapaper.racingar.kit.R;
+import com.ekcapaper.racingar.kit.data.ThisApplication;
+import com.ekcapaper.racingar.kit.utils.Tools;
 
 public class SingleGameMapActivity extends AppCompatActivity {
     private GameRoomOperator gameRoomOperator;
