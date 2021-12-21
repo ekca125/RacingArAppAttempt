@@ -15,9 +15,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.material.components.R;
-import com.material.components.data.ThisApplication;
-import com.material.components.utils.Tools;
+import com.ekcapaper.material.components.R;
+import com.ekcapaper.material.components.data.ThisApplication;
+import com.ekcapaper.material.components.utils.Tools;
 
 public class SingleGameMapActivity extends AppCompatActivity {
     private GameRoomOperator gameRoomOperator;

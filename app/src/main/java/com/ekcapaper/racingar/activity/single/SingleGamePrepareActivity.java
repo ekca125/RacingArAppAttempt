@@ -7,7 +7,6 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ProgressBar;
@@ -17,10 +16,8 @@ import com.ekcapaper.racingar.game.GameAppOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.material.components.R;
-import com.material.components.data.ThisApplication;
-
-import java.util.List;
+import com.ekcapaper.material.components.R;
+import com.ekcapaper.material.components.data.ThisApplication;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
