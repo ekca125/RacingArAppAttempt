@@ -3,6 +3,7 @@ package com.ekcapaper.racingar.game;
 import static org.junit.Assert.*;
 
 import android.location.Location;
+import android.util.Log;
 
 import org.junit.Test;
 
@@ -19,6 +20,7 @@ public class FlagGameBoardTest {
 
         FlagGameBoard flagGameBoard = new FlagGameBoard(1.0,location);
         flagGameBoard.drawFlags();
-        assertTrue(flagGameBoard.isDrew());
+        Log.d("test", String.valueOf(flagGameBoard.getAddressDtoList().size()));
+        assertNotNull(flagGameBoard.getAddressDtoList());
     }
 }

@@ -1,6 +1,7 @@
 package com.ekcapaper.racingar.game;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.ekcapaper.racingar.dto.AddressDto;
 import com.ekcapaper.racingar.maptool.MapRange;
@@ -25,12 +26,16 @@ public class FlagGameBoard extends GameBoard{
         addressDtoList = null;
     }
 
+    public List<AddressDto> getAddressDtoList() {
+        return addressDtoList;
+    }
+
     boolean isDrew(){
         return addressDtoList != null;
     }
 
     void drawFlags(){
-        if(addressDtoList != null){
+        if(addressDtoList == null){
             try {
                 Call<String> call = RetrofitRwabClient
                         .getMapAddressService()

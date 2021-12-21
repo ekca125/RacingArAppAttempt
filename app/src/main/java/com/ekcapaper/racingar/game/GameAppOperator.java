@@ -1,5 +1,6 @@
 package com.ekcapaper.racingar.game;
 
+import android.content.Intent;
 import android.location.Location;
 
 import com.ekcapaper.racingar.dto.AddressDto;
@@ -33,13 +34,17 @@ public class GameAppOperator extends NakamaNetworkManager {
 
     public void makeSingleRoom(Location location) {
         try {
-            currentGameRoomOperator = new SingleGameRoomOperator(socketClient);
+            FlagGameBoard flagGameBoard = new FlagGameBoard(1, location);
+            flagGameBoard.drawFlags();
+            if(flagGameBoard.isDrew()){
+                SingleGameRoomOperator singleGameRoomOperator = new SingleGameRoomOperator(socketClient, flagGameBoard);
+                singleGameRoomOperator.createMatch();
+                currentGameRoomOperator = singleGameRoomOperator;
+            }
+            else{
+                throw new InterruptedException();
+            }
             currentGameRoomOperator.createMatch();
-            // 맵 데이터 (게임 맵 생성 AddressDtoList를 생성자로 받아서 -> FlagGame으로 만든다.)
-            // GameBoard gameBoard = new FlagGameBoard();
-            // GameRoomOperator은 GameBoard를 받아서 진행한다.
-            // 액티비티를 시작한다. 이후의 처리는 액티비티 내부의 변수로 지정된 GameRoomOperator에게 넘긴다.
-
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             currentGameRoomOperator = null;
@@ -49,5 +54,4 @@ public class GameAppOperator extends NakamaNetworkManager {
     public GameRoomOperator getCurrentGameRoomOperator(){
         return currentGameRoomOperator;
     }
-
 }
