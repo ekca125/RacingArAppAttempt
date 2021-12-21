@@ -26,4 +26,7 @@ public class MeterToLatitudeConverter extends MeterConverter{
     public double convertMeterToLatitude(double meter){
         return meter * latitudeOneSecondMeter;
     }
+    public double convertKiloMeterToLatitude(double kilometer){
+        return kilometer * latitudeOneSecondKiloMeter;
+    }
 }

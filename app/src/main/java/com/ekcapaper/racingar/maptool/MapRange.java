@@ -1,6 +1,7 @@
 package com.ekcapaper.racingar.maptool;
 
 import lombok.Builder;
+import lombok.ToString;
 
 public class MapRange {
     double startLatitude;
@@ -30,5 +31,15 @@ public class MapRange {
 
     public double getEndLongitude() {
         return endLongitude;
+    }
+
+    @Override
+    public String toString() {
+        return "MapRange{" +
+                "startLatitude=" + startLatitude +
+                ", startLongitude=" + startLongitude +
+                ", endLatitude=" + endLatitude +
+                ", endLongitude=" + endLongitude +
+                '}';
     }
 }

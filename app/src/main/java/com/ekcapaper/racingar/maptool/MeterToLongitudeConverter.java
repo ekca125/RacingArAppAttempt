@@ -17,7 +17,7 @@ public class MeterToLongitudeConverter extends MeterConverter{
     final private double longitudeOneSecondMeter;
 
     public MeterToLongitudeConverter(double latitude){
-        longitudeOneMinuteKiloMeter = 40075 * Math.cos(latitude) / 360;
+        longitudeOneMinuteKiloMeter = Math.abs(40075 * Math.cos(latitude) / 360);
         longitudeOneMinuteMeter = convertKilometerToMeter(longitudeOneMinuteKiloMeter);
         longitudeOneSecondKiloMeter = longitudeOneMinuteKiloMeter / 3600;
         longitudeOneSecondMeter = convertKilometerToMeter(longitudeOneSecondKiloMeter);
@@ -26,4 +26,5 @@ public class MeterToLongitudeConverter extends MeterConverter{
     public double convertMeterToLongitude(double meter){
         return meter * longitudeOneSecondMeter;
     }
+    public double convertKilometerToLongitude(double kilometer) { return kilometer * longitudeOneSecondKiloMeter;}
 }

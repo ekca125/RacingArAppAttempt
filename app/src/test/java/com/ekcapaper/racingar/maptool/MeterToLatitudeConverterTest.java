@@ -8,8 +8,7 @@ public class MeterToLatitudeConverterTest {
     @Test
     public void convertMeterToLatitude() {
         MeterToLatitudeConverter meterToLatitudeConverter = new MeterToLatitudeConverter();
-        double latitude = meterToLatitudeConverter.convertMeterToLatitude(1);
-        assertTrue(latitude <= 40);
-        assertTrue(latitude >= 20);
+        double latitude = meterToLatitudeConverter.convertKiloMeterToLatitude(1);
+        assertTrue(latitude <= 1);
     }
 }
