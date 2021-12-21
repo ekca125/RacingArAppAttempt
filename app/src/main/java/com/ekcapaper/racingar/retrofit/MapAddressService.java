@@ -12,12 +12,12 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MapAddressService {
-    @POST("/api/v1/address/range-random")
-    Call<String> getMapAddress(@Body String jsonMapRange);
-
     @GET("/api/v1/address/id={id}")
     Call<String> findAddress(@Path("id") long id);
 
-    @GET("/api/v1/address/random")
-    Call<String> randomAddress();
+    @GET("/api/v1/address/draw/random")
+    Call<String> drawRandom();
+
+    @POST("/api/v1/address/draw/range")
+    Call<String> drawMapRangeRandom(@Body MapRange mapRange);
 }

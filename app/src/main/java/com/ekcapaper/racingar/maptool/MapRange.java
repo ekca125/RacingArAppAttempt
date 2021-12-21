@@ -1,11 +1,14 @@
 package com.ekcapaper.racingar.maptool;
 
+import lombok.Builder;
+
 public class MapRange {
     double startLatitude;
     double startLongitude;
     double endLatitude;
     double endLongitude;
 
+    @Builder
     public MapRange(double startLatitude, double startLongitude, double endLatitude, double endLongitude) {
         this.startLatitude = startLatitude;
         this.startLongitude = startLongitude;

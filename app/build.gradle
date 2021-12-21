@@ -84,7 +84,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-scalars
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly 'org.projectlombok:lombok:1.18.22'
+    implementation 'org.projectlombok:lombok:1.18.22'
 
 }
 

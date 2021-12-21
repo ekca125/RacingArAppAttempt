@@ -8,9 +8,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class RetrofitClient {
+public class RetrofitRwabClient {
     private static String BASE_URL = "https://rawb.ekcapaper.net";
-    private RetrofitClient(){}
+    private RetrofitRwabClient(){}
 
     private static Retrofit getInstance(){
         Gson gson = new GsonBuilder()
