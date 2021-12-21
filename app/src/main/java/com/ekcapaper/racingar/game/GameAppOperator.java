@@ -2,24 +2,24 @@ package com.ekcapaper.racingar.game;
 
 import android.location.Location;
 
+import com.ekcapaper.racingar.dto.AddressDto;
+import com.ekcapaper.racingar.maptool.GameMapRangeCalculator;
 import com.ekcapaper.racingar.maptool.MapRange;
-import com.ekcapaper.racingar.maptool.MeterToLatitudeConverter;
-import com.ekcapaper.racingar.maptool.MeterToLongitudeConverter;
 import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
-import com.ekcapaper.racingar.retrofit.MapAddressService;
+import com.ekcapaper.racingar.retrofit.RetrofitRwabClient;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
-import retrofit2.Retrofit;
 
 public class GameAppOperator extends NakamaNetworkManager {
     private GameRoomOperator currentGameRoomOperator;
-
-    // 맵의 크기 : 플레이어의 위치를 중앙으로 하고 가로 세로가 1km인 정사각형
-    // 맵의 시작위치는 왼쪽아래이며 맵의 끝위치는 오른쪽위이다.
-    final private double defaultMapSize = 1;
 
     public GameAppOperator() {
         super();
@@ -34,35 +34,26 @@ public class GameAppOperator extends NakamaNetworkManager {
         currentGameRoomOperator = null;
     }
 
-    private MapRange getMapRange(Location location){
-        double currentLatitude = location.getLatitude();
-        double currentLongitude = location.getLongitude();
+    private List<AddressDto> makeGameMap(Location location) throws IOException {
+        // range map 생성
+        MapRange mapRange = new GameMapRangeCalculator().getMapRange(location);
 
-        MeterToLatitudeConverter meterToLatitudeConverter = new MeterToLatitudeConverter();
-        MeterToLongitudeConverter meterToLongitudeConverter = new MeterToLongitudeConverter(currentLatitude);
+        // 서버로부터 맵 받아오기(10개)
+        Call<String> call = RetrofitRwabClient.getMapAddressService().drawMapRangeRandom10(mapRange);
+        String mapJson = call.execute().body();
 
-        double distanceMeter = defaultMapSize/2;
-
-        double startLatitude = currentLatitude - meterToLatitudeConverter.convertMeterToLatitude(distanceMeter);
-        double startLongitude = currentLongitude - meterToLongitudeConverter.convertMeterToLongitude(distanceMeter);
-        double endLatitude = currentLatitude + meterToLatitudeConverter.convertMeterToLatitude(distanceMeter);
-        double endLongitude =  currentLongitude + meterToLongitudeConverter.convertMeterToLongitude(distanceMeter);
-
-        return new MapRange(startLatitude,startLongitude,endLatitude,endLongitude);
+        return new Gson().fromJson(mapJson, new TypeToken<ArrayList<AddressDto>>(){}.getType());
     }
 
-
-    public void makeSingleRoom(Location location){
+    public void makeSingleRoom(Location location) {
         try {
             currentGameRoomOperator = new SingleGameRoomOperator(socketClient);
             currentGameRoomOperator.createMatch();
-            // range map 생성
-            MapRange mapRange = getMapRange(location);
-            // 서버로부터 맵 받아오기
-
+            // 맵 데이터 (게임 맵 생성 AddressDtoList를 생성자로 받아서 -> FlagGame으로 만든다.)
+            List<AddressDto> addressDtoList = makeGameMap(location);
             // 액티비티를 시작한다. 이후의 처리는 액티비티 내부의 변수로 지정된 GameRoomOperator에게 넘긴다.
 
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException | InterruptedException | IOException e) {
             e.printStackTrace();
             currentGameRoomOperator = null;
         }

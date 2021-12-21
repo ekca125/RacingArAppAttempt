@@ -20,4 +20,13 @@ public interface MapAddressService {
 
     @POST("/api/v1/address/draw/range")
     Call<String> drawMapRangeRandom(@Body MapRange mapRange);
+
+    @POST("/api/v1/address/draw/range-limit-10")
+    Call<String> drawMapRangeRandom10(@Body MapRange mapRange);
+
+    @POST("/api/v1/address/draw/range-limit-50")
+    Call<String> drawMapRangeRandom50(@Body MapRange mapRange);
+
+    @POST("/api/v1/address/draw/range-limit-100")
+    Call<String> drawMapRangeRandom100(@Body MapRange mapRange);
 }

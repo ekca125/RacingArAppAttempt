@@ -50,4 +50,43 @@ public class MapAddressServiceTest {
         Call<String> requester = RetrofitRwabClient.getMapAddressService().drawMapRangeRandom(mapRange);
         //System.out.println(requester.execute().body());
     }
+
+    @Test
+    public void drawMapRangeRandom10() throws IOException{
+        double startLatitude = 35.0979529784;
+        double startLongitude = 129.0219886069;
+        double endLatitude = 35.1066801454;
+        double endLongitude = 129.0290353612;
+
+        MapRange mapRange = new MapRange(startLatitude,startLongitude,endLatitude,endLongitude);
+        Call<String> requester = RetrofitRwabClient.getMapAddressService().drawMapRangeRandom10(mapRange);
+        boolean result = requester.execute().isSuccessful();
+        assertTrue(result);
+    }
+
+    @Test
+    public void drawMapRangeRandom50() throws IOException{
+        double startLatitude = 35.0979529784;
+        double startLongitude = 129.0219886069;
+        double endLatitude = 35.1066801454;
+        double endLongitude = 129.0290353612;
+
+        MapRange mapRange = new MapRange(startLatitude,startLongitude,endLatitude,endLongitude);
+        Call<String> requester = RetrofitRwabClient.getMapAddressService().drawMapRangeRandom50(mapRange);
+        boolean result = requester.execute().isSuccessful();
+        assertTrue(result);
+    }
+
+    @Test
+    public void drawMapRangeRandom100() throws IOException{
+        double startLatitude = 35.0979529784;
+        double startLongitude = 129.0219886069;
+        double endLatitude = 35.1066801454;
+        double endLongitude = 129.0290353612;
+
+        MapRange mapRange = new MapRange(startLatitude,startLongitude,endLatitude,endLongitude);
+        Call<String> requester = RetrofitRwabClient.getMapAddressService().drawMapRangeRandom100(mapRange);
+        boolean result = requester.execute().isSuccessful();
+        assertTrue(result);
+    }
 }
