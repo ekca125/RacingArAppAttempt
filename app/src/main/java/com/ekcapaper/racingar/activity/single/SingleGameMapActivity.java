@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ekcapaper.racingar.activity.PermissionRequestActivity;
 import com.ekcapaper.racingar.game.GameRoomOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
@@ -114,8 +116,8 @@ public class SingleGameMapActivity extends AppCompatActivity {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // 권한이 없어진 경우 그대로 종료
-            finish();
+            Intent intent = new Intent(this, PermissionRequestActivity.class);
+            startActivity(intent);
         }
         fusedLocationProviderClient.requestLocationUpdates(
                 locationRequest,
