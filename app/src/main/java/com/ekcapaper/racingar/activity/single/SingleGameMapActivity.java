@@ -129,6 +129,33 @@ public class SingleGameMapActivity extends AppCompatActivity {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopLocationCallback();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startLocationCallback();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+        fusedLocationProviderClient = null;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(fusedLocationProviderClient == null){
+            initFusedLocation();
+        }
+    }
+
     public void clickAction(View view) {
         int id = view.getId();
         switch (id) {
