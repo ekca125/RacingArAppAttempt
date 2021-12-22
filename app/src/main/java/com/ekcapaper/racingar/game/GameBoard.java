@@ -12,6 +12,7 @@ public class GameBoard {
     private final Location location;
     private final MapRange mapRange;
 
+    protected Location currentPlayerLocation;
     /*
         mapsize : kilometer 기준
     */
@@ -19,6 +20,7 @@ public class GameBoard {
         this.mapSize = mapSize;
         this.location = location;
         this.mapRange = calculateMapRange();
+        this.currentPlayerLocation = location;
     }
 
     private MapRange calculateMapRange(){

@@ -19,9 +19,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 
-public class FlagGameBoard extends GameBoard{
-    private List<AddressDto> addressDtoList;
-    private Location location;
+public abstract class FlagGameBoard extends GameBoard{
+    protected List<AddressDto> addressDtoList;
 
     public FlagGameBoard(double mapSize, Location location) {
         super(mapSize, location);
@@ -55,9 +54,7 @@ public class FlagGameBoard extends GameBoard{
         }
     }
 
-    public void movePlayer(Location location){
-        this.location = location;
-    }
+    abstract public void movePlayer(Location location);
 }
 
 

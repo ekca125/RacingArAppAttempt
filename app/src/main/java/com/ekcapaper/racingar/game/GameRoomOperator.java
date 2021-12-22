@@ -42,12 +42,12 @@ public abstract class GameRoomOperator {
     }
 
     public void sendMovePlayerMessage(Location location){
-        String authToken = session.getAuthToken();
+        String username = session.getUsername();
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
 
         MovePlayerMessage movePlayerMessage = MovePlayerMessage.builder()
-                .authToken(authToken)
+                .userName(username)
                 .latitude(latitude)
                 .longitude(longitude)
                 .build();

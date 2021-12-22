@@ -34,10 +34,10 @@ public class GameAppOperator extends NakamaNetworkManager {
 
     public void makeSingleRoom(Location location) {
         try {
-            FlagGameBoard flagGameBoard = new FlagGameBoard(1, location);
-            flagGameBoard.drawFlags();
-            if(flagGameBoard.isDrew()){
-                SingleGameRoomOperator singleGameRoomOperator = new SingleGameRoomOperator(session, socketClient, flagGameBoard);
+            FlagSingleGameBoard flagSingleGameBoard = new FlagSingleGameBoard(1, location);
+            flagSingleGameBoard.drawFlags();
+            if(flagSingleGameBoard.isDrew()){
+                SingleGameRoomOperator singleGameRoomOperator = new SingleGameRoomOperator(session, socketClient, flagSingleGameBoard);
                 singleGameRoomOperator.createMatch();
                 currentGameRoomOperator = singleGameRoomOperator;
             }
