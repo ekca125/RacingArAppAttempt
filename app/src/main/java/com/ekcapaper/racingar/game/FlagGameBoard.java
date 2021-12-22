@@ -30,11 +30,11 @@ public class FlagGameBoard extends GameBoard{
         return addressDtoList;
     }
 
-    boolean isDrew(){
+    public boolean isDrew(){
         return addressDtoList != null;
     }
 
-    void drawFlags(){
+    public void drawFlags(){
         if(!isDrew()){
             try {
                 Call<String> call = RetrofitRwabClient

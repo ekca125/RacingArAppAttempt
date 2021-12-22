@@ -14,7 +14,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ekcapaper.racingar.activity.PermissionRequestActivity;
+import com.ekcapaper.racingar.game.GameAppOperator;
 import com.ekcapaper.racingar.game.GameRoomOperator;
+import com.ekcapaper.racingar.game.SingleGameRoomOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -34,7 +36,9 @@ import com.ekcapaper.racingar.kit.data.ThisApplication;
 import com.ekcapaper.racingar.kit.utils.Tools;
 
 public class SingleGameMapActivity extends AppCompatActivity {
-    private GameRoomOperator gameRoomOperator;
+    private GameAppOperator gameAppOperator;
+    private SingleGameRoomOperator singleGameRoomOperator;
+
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
@@ -44,25 +48,20 @@ public class SingleGameMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_game_map);
 
+        gameAppOperator = ((ThisApplication)getApplicationContext()).getGameAppOperator();
+        if(gameAppOperator.checkCurrentGameRoomOperator()){
+            singleGameRoomOperator = (SingleGameRoomOperator) gameAppOperator.getCurrentGameRoomOperator();
+        }
+        else{
+            // 없는 경우에는 종료
+            Toast.makeText(this,"오류 : 정상적인 접근이 아닙니다.",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         initMapFragment();
         Tools.setSystemBarColor(this, R.color.colorPrimary);
 
         initFusedLocation();
-
-        /*
-        if(((ThisApplication)getApplicationContext())
-                .getGameAppOperator()
-                .checkCurrentGameRoomOperator()){
-            this.gameRoomOperator = ((ThisApplication)getApplicationContext())
-                    .getGameAppOperator()
-                    .getCurrentGameRoomOperator();
-        }
-        else{
-            // 없는 경우에는 종료
-            finish();
-        }
-
-         */
     }
 
     private void initMapFragment() {
@@ -91,6 +90,8 @@ public class SingleGameMapActivity extends AppCompatActivity {
                     if (location != null) {
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
+                        // move player
+
                         Log.d("Test1234", "GPS Location changed " +
                                 "latitude : " + String.valueOf(latitude) +
                                 "longitude : " +String.valueOf(longitude));
