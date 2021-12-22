@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.ekcapaper.racingar.kit.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,7 +20,6 @@ public class PermissionRequestActivity extends AppCompatActivity {
     final int LOCATION_PERMISSON_REQUEST_CODE = 2;
 
     String[] permissions = new String[]{
-            Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
 
@@ -27,14 +27,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permission_request);
-
-        if (EasyPermissions.hasPermissions(this, permissions)) {
-            finish();
-        }
-        else{
-            // 권한이 없는 경우
-            permissionGranted();
-        }
+        permissionFunction();
     }
 
     @Override
@@ -44,16 +37,18 @@ public class PermissionRequestActivity extends AppCompatActivity {
     }
 
     @AfterPermissionGranted(LOCATION_PERMISSON_REQUEST_CODE)
-    private void permissionGranted(){
-        // 권한 체크
+    private void permissionFunction(){
         if (EasyPermissions.hasPermissions(this, permissions)) {
-            finish();
+            permissionGranted();
         }
         else{
-            // 권한이 없는 경우
             EasyPermissions.requestPermissions(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION.toString(),
                     LOCATION_PERMISSON_REQUEST_CODE, permissions);
         }
+    }
+
+    protected void permissionGranted(){
+        Toast.makeText(this,"permission granted",Toast.LENGTH_SHORT).show();
     }
 }
