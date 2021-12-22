@@ -2,6 +2,8 @@ package com.ekcapaper.racingar.game;
 
 import static org.junit.Assert.*;
 
+import com.ekcapaper.racingar.game.operator.GameAppOperator;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 

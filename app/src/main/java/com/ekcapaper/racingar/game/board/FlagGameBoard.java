@@ -1,12 +1,8 @@
-package com.ekcapaper.racingar.game;
+package com.ekcapaper.racingar.game.board;
 
 import android.location.Location;
-import android.util.Log;
 
 import com.ekcapaper.racingar.dto.AddressDto;
-import com.ekcapaper.racingar.maptool.MapRange;
-import com.ekcapaper.racingar.maptool.MeterToLatitudeConverter;
-import com.ekcapaper.racingar.maptool.MeterToLongitudeConverter;
 import com.ekcapaper.racingar.retrofit.RetrofitRwabClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

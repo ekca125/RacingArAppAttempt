@@ -1,6 +1,5 @@
 package com.ekcapaper.racingar.activity.single;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -12,15 +11,12 @@ import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.ekcapaper.racingar.game.GameAppOperator;
+import com.ekcapaper.racingar.game.operator.GameAppOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.ekcapaper.racingar.kit.R;
 import com.ekcapaper.racingar.kit.data.ThisApplication;
-
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class SingleGamePrepareActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationClient;

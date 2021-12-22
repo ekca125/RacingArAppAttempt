@@ -1,7 +1,8 @@
-package com.ekcapaper.racingar.game;
+package com.ekcapaper.racingar.game.operator;
 
 import android.location.Location;
 
+import com.ekcapaper.racingar.game.board.FlagSingleGameBoard;
 import com.ekcapaper.racingar.game.message.MessageOpCodeStorage;
 import com.ekcapaper.racingar.game.message.MovePlayerMessage;
 import com.google.gson.Gson;
@@ -12,7 +13,6 @@ import com.heroiclabs.nakama.SocketClient;
 import com.heroiclabs.nakama.SocketListener;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 public class SingleGameRoomOperator extends GameRoomOperator {
     private FlagSingleGameBoard flagSingleGameBoard;

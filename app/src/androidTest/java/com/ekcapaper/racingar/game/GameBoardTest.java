@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import android.location.Location;
 import android.util.Log;
 
+import com.ekcapaper.racingar.game.board.GameBoard;
 import com.ekcapaper.racingar.maptool.MapRange;
 
 import org.junit.Test;
