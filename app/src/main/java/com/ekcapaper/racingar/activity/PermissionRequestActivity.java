@@ -29,12 +29,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_permission_request);
 
         if (EasyPermissions.hasPermissions(this, permissions)) {
-            // 권한 체크 2
-            if (ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                finish();
-            }
+            finish();
         }
         else{
             // 권한이 없는 경우
@@ -52,12 +47,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
     private void permissionGranted(){
         // 권한 체크
         if (EasyPermissions.hasPermissions(this, permissions)) {
-            // 권한 체크 2
-            if (ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                finish();
-            }
+            finish();
         }
         else{
             // 권한이 없는 경우

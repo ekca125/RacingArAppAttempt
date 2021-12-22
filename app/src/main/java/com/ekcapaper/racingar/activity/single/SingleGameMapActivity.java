@@ -116,8 +116,8 @@ public class SingleGameMapActivity extends AppCompatActivity {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Intent intent = new Intent(this, PermissionRequestActivity.class);
-            startActivity(intent);
+            // 권한이 없다면 종료
+            finish();
         }
         fusedLocationProviderClient.requestLocationUpdates(
                 locationRequest,
