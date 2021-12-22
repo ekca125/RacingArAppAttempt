@@ -10,9 +10,8 @@ import android.widget.Toast;
 
 import com.ekcapaper.racingar.game.GameAppOperator;
 import com.google.android.material.textfield.TextInputEditText;
-import com.material.components.R;
-import com.material.components.activity.login.LoginBigImage;
-import com.material.components.data.ThisApplication;
+import com.ekcapaper.racingar.kit.R;
+import com.ekcapaper.racingar.kit.data.ThisApplication;
 
 import java.util.concurrent.ExecutionException;
 
