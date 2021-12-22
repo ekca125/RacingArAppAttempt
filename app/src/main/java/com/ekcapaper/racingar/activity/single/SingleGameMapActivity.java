@@ -1,12 +1,24 @@
 package com.ekcapaper.racingar.activity.single;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.ekcapaper.racingar.game.GameRoomOperator;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +34,8 @@ import com.ekcapaper.racingar.kit.utils.Tools;
 public class SingleGameMapActivity extends AppCompatActivity {
     private GameRoomOperator gameRoomOperator;
     private GoogleMap mMap;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +44,8 @@ public class SingleGameMapActivity extends AppCompatActivity {
 
         initMapFragment();
         Tools.setSystemBarColor(this, R.color.colorPrimary);
+
+        initFusedLocation();
 
         /*
         if(((ThisApplication)getApplicationContext())
@@ -53,27 +69,63 @@ public class SingleGameMapActivity extends AppCompatActivity {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = Tools.configActivityMaps(googleMap);
-                MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(37.7610237, -122.4217785));
-                mMap.addMarker(markerOptions);
                 mMap.moveCamera(zoomingLocation());
-                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-                        try {
-                            mMap.animateCamera(zoomingLocation());
-                        } catch (Exception e) {
-                        }
-                        return true;
-                    }
-                });
             }
         });
     }
 
     private CameraUpdate zoomingLocation() {
-        return CameraUpdateFactory.newLatLngZoom(new LatLng(37.76496792, -122.42206407), 13);
+        return CameraUpdateFactory.newLatLngZoom(new LatLng(37.541, 126.986), 13);
     }
 
+    private void initFusedLocation() {
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    if (location != null) {
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+                        Log.d("Test1234", "GPS Location changed " +
+                                "latitude : " + String.valueOf(latitude) +
+                                "longitude : " +String.valueOf(longitude));
+                    }
+                }
+            }
+
+            @Override
+            public void onLocationAvailability(LocationAvailability locationAvailability) {
+                super.onLocationAvailability(locationAvailability);
+            }
+        };
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        startLocationCallback();
+    }
+
+    private void startLocationCallback(){
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        // 1초 마다
+        locationRequest.setInterval(1000);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // 권한이 없어진 경우 그대로 종료
+            finish();
+        }
+        fusedLocationProviderClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper());
+    }
+
+    private void stopLocationCallback(){
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+    }
 
     public void clickAction(View view) {
         int id = view.getId();
