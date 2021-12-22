@@ -2,8 +2,11 @@ package com.ekcapaper.racingar.game.board;
 
 import android.location.Location;
 
-public class FlagSingleGameBoard extends FlagGameBoard{
+import java.util.stream.Collectors;
 
+public class FlagSingleGameBoard extends FlagGameBoard{
+    // 50 미터
+    private final static double FLAG_GET_DISTANCE = 50;
     public FlagSingleGameBoard(double mapSize, Location location) {
         super(mapSize, location);
     }
@@ -11,6 +14,16 @@ public class FlagSingleGameBoard extends FlagGameBoard{
     @Override
     public void movePlayer(Location location) {
         this.currentPlayerLocation = location;
-        // 일정 이상의 거리에 가까이 도달하면 처리
+        addressDtoList = addressDtoList
+                .stream()
+                .filter((addressDto -> {
+                    Location address1 = new Location("");
+                    address1.setLatitude(addressDto.getLatitude());
+                    address1.setLongitude(addressDto.getLongitude());
+
+                    Location address2 = currentPlayerLocation;
+                    return !(address1.distanceTo(address2) < FLAG_GET_DISTANCE);
+                }))
+                .collect(Collectors.toList());
     }
 }
