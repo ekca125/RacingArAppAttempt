@@ -90,10 +90,17 @@ public class SingleGameMapActivity extends AppCompatActivity {
         singleGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
             @Override
             public void accept(Object o) {
-
+                refreshScreenMap();
             }
         });
         singleGameRoomOperator.startReceiveMessageCallback();
+    }
+
+    
+    // marker
+    private void refreshScreenMap(){
+
+
     }
 
     private void initMapFragment() {
