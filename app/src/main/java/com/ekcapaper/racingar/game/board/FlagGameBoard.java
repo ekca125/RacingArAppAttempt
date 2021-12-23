@@ -21,50 +21,36 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 
-public abstract class FlagGameBoard extends GameBoard{
-    public class GameFlag extends AddressDto{
-        @Setter
-        @Getter
-        String owner;
+public abstract class FlagGameBoard extends MultiGameBoard{
+    public static class GameFlag{
         //userIdentifier
-        @Builder
-        public GameFlag(long id, double latitude, double longitude, String owner) {
-            super(id, latitude, longitude);
-            this.owner = owner;
-        }
-    }
-
-
-
-    public class GameFlag extends AddressDto {
-        @Setter
-        @Getter
         String owner;
+        @Getter
+        Location location;
 
-        public GameFlag(long id, double latitude, double longitude) {
-            super(id, latitude, longitude);
-            owner = null;
-        }
-
-        public GameFlag(AddressDto addressDto){
-            super(addressDto.getId(),addressDto.getLatitude(),addressDto.getLongitude());
-            owner = null;
+        public GameFlag(Location location) {
+            this.owner = null;
+            this.location = location;
         }
 
         public boolean checkOwned(){
             return owner != null;
         }
+
+        public void setOwner(String userIdentifier){
+            this.owner = userIdentifier;
+        }
+
+        public String getOwner() {
+            return owner;
+        }
     }
+    // 50 미터
+    private final static double FLAG_GET_DISTANCE = 50;
+    private List<GameFlag> gameFlagList;
 
-    protected List<GameFlag> gameFlagList;
-
-    public FlagGameBoard(double mapSize, Location location) {
-        super(mapSize, location);
-        gameFlagList = null;
-    }
-
-    public List<GameFlag> getGameFlagList() {
-        return gameFlagList;
+    public FlagGameBoard(double mapLengthKilometer, Location mapCenter) {
+        super(mapLengthKilometer, mapCenter);
     }
 
     public boolean isDrew(){
@@ -83,11 +69,11 @@ public abstract class FlagGameBoard extends GameBoard{
                     Gson gson = new Gson();
                     List<AddressDto> addressDtoList = gson.fromJson(body, new TypeToken<ArrayList<AddressDto>>(){}.getType());
                     gameFlagList = addressDtoList.stream()
-                            .map(new Function<AddressDto, GameFlag>() {
-                                @Override
-                                public GameFlag apply(AddressDto addressDto) {
-                                    return new GameFlag(addressDto);
-                                }
+                            .map(addressDto -> {
+                                Location location = new Location("");
+                                location.setLatitude(addressDto.getLatitude());
+                                location.setLongitude(addressDto.getLongitude());
+                                return new GameFlag(location);
                             })
                             .collect(Collectors.toList());
                 }
@@ -98,41 +84,20 @@ public abstract class FlagGameBoard extends GameBoard{
         }
     }
 
-    // 50 미터
-    private final static double FLAG_GET_DISTANCE = 50;
-    public FlagSingleGameBoard(double mapSize, Location location) {
-        super(mapSize, location);
-    }
-
     @Override
-    public void movePlayer(MovePlayerMessage movePlayerMessage) {
-        Location playerLocation = new Location("");
-        playerLocation.setLatitude(movePlayerMessage.getLatitude());
-        playerLocation.setLongitude(movePlayerMessage.getLongitude());
-
-        this.currentPlayerLocation = playerLocation;
+    public void movePlayer(String userIdentifier, Location location) {
+        super.movePlayer(userIdentifier, location);
         for(int i=0; i<gameFlagList.size();i++){
             GameFlag gameFlag = gameFlagList.get(i);
             if(!gameFlag.checkOwned()){
-                Location address1 = new Location("");
-                address1.setLatitude(gameFlag.getLatitude());
-                address1.setLongitude(gameFlag.getLongitude());
-
-                Location address2 = currentPlayerLocation;
-
-                double distance = address1.distanceTo(address2);
-                if(distance < 0){
-                    distance = -distance;
-                }
-
-                if(distance <= FLAG_GET_DISTANCE){
-                    gameFlag.setOwner(movePlayerMessage.getUserIdentifier());
+                // 소유자가 없는 경우
+                if(gameFlag.getLocation().distanceTo(location) <= FLAG_GET_DISTANCE){
+                    // 깃발과의 거리가 일정 이하로 떨어진 경우
+                    gameFlag.setOwner(userIdentifier);
                 }
             }
         }
     }
-
-    abstract public void movePlayer(MovePlayerMessage movePlayerMessage);
 }
 
 
