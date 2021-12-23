@@ -1,8 +1,6 @@
-package com.ekcapaper.racingar.game;
+package com.ekcapaper.racingar.game.operator;
 
 import static org.junit.Assert.*;
-
-import com.ekcapaper.racingar.game.operator.GameAppOperator;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,7 +8,6 @@ import org.junit.Test;
 import java.util.concurrent.ExecutionException;
 
 public class GameAppOperatorTest {
-
     static GameAppOperator gameAppOperator;
     @BeforeClass
     public static void initGame() throws ExecutionException, InterruptedException {
@@ -36,5 +33,21 @@ public class GameAppOperatorTest {
     @Test
     public void checkSocketClient() {
         assertTrue(gameAppOperator.checkSocketClient());
+    }
+
+    @Test
+    public void checkCurrentGameRoomOperator() {
+    }
+
+    @Test
+    public void leaveRoom() {
+    }
+
+    @Test
+    public void makeSingleRoom() {
+    }
+
+    @Test
+    public void getCurrentGameRoomOperator() {
     }
 }

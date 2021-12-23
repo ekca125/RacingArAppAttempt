@@ -96,7 +96,7 @@ public class SingleGameMapActivity extends AppCompatActivity {
         singleGameRoomOperator.startReceiveMessageCallback();
     }
 
-    
+
     // marker
     private void refreshScreenMap(){
 
