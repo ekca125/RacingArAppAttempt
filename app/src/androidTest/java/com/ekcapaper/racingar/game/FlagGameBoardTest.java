@@ -23,7 +23,7 @@ public class FlagGameBoardTest {
 
         FlagGameBoard flagGameBoard = new FlagSingleGameBoard(1.0,location);
         flagGameBoard.drawFlags();
-        Log.d("test", String.valueOf(flagGameBoard.getAddressDtoList().size()));
-        assertNotNull(flagGameBoard.getAddressDtoList());
+        Log.d("test", String.valueOf(flagGameBoard.getGameFlagList().size()));
+        assertNotNull(flagGameBoard.getGameFlagList());
     }
 }

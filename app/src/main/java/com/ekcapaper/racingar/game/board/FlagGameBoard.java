@@ -25,6 +25,10 @@ public abstract class FlagGameBoard extends GameBoard{
         gameFlagList = null;
     }
 
+    public List<GameFlag> getGameFlagList() {
+        return gameFlagList;
+    }
+
     public boolean isDrew(){
         return gameFlagList != null;
     }
