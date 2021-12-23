@@ -30,6 +30,10 @@ public class SingleGameRoomOperator extends GameRoomOperator {
     
     // 오퍼레이터에서 처리해야할 내용
     public void startReceiveMessageCallback(){
+        if(afterPlayerMoveCallback == null){
+            throw new NullPointerException();
+        }
+
         SocketListener listener = new AbstractSocketListener() {
             @Override
             public void onMatchData(final MatchData matchData) {
@@ -54,7 +58,6 @@ public class SingleGameRoomOperator extends GameRoomOperator {
         socketClient.connect(session,listener);
     }
 
-    // 설정되지 않은 상태에서 실행하면 null 오류
     // 액티비티에서 추가적으로 처리해야 할 내용
     public void setAfterPlayerMoveCallback(Consumer<Object> afterPlayerMoveCallback){
         this.afterPlayerMoveCallback = afterPlayerMoveCallback;
