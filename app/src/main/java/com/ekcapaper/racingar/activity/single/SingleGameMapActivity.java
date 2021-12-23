@@ -8,15 +8,12 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.ekcapaper.racingar.game.board.GameFlag;
-import com.ekcapaper.racingar.game.message.MessageOpCodeStorage;
-import com.ekcapaper.racingar.game.message.MovePlayerMessage;
-import com.ekcapaper.racingar.game.operator.GameAppOperator;
-import com.ekcapaper.racingar.game.operator.SingleGameRoomOperator;
+import com.ekcapaper.racingar.game.operator.app.GameAppOperator;
+import com.ekcapaper.racingar.game.operator.room.FlagGameRoomOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -34,12 +31,7 @@ import com.ekcapaper.racingar.kit.data.ThisApplication;
 import com.ekcapaper.racingar.kit.utils.Tools;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
-import com.heroiclabs.nakama.AbstractSocketListener;
-import com.heroiclabs.nakama.MatchData;
-import com.heroiclabs.nakama.SocketListener;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -47,7 +39,7 @@ import java.util.stream.Collectors;
 
 public class SingleGameMapActivity extends AppCompatActivity {
     private GameAppOperator gameAppOperator;
-    private SingleGameRoomOperator singleGameRoomOperator;
+    private FlagGameRoomOperator flagGameRoomOperator;
 
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -60,7 +52,7 @@ public class SingleGameMapActivity extends AppCompatActivity {
 
         gameAppOperator = ((ThisApplication)getApplicationContext()).getGameAppOperator();
         if(gameAppOperator.checkCurrentGameRoomOperator()){
-            singleGameRoomOperator = (SingleGameRoomOperator) gameAppOperator.getCurrentGameRoomOperator();
+            flagGameRoomOperator = (FlagGameRoomOperator) gameAppOperator.getCurrentGameRoomOperator();
         }
         else{
             // 없는 경우에는 종료
@@ -76,7 +68,7 @@ public class SingleGameMapActivity extends AppCompatActivity {
                 }
                 for (Location location : locationResult.getLocations()) {
                     if (location != null) {
-                        singleGameRoomOperator.sendPlayerMoveMessage(location);
+                        flagGameRoomOperator.sendPlayerMoveMessage(location);
                     }
                 }
             }
@@ -93,19 +85,19 @@ public class SingleGameMapActivity extends AppCompatActivity {
         initFusedLocation();
 
         // start game
-        singleGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
+        flagGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
             @Override
             public void accept(Object o) {
                 refreshScreenMap();
             }
         });
-        singleGameRoomOperator.startReceiveMessageCallback();
+        flagGameRoomOperator.startReceiveMessageCallback();
     }
 
     Marker marker = null;
     // marker
     private void refreshScreenMap(){
-        List<GameFlag> gameFlagList = singleGameRoomOperator.getFlagSingleGameBoard().getGameFlagList();
+        List<GameFlag> gameFlagList = flagGameRoomOperator.getFlagSingleGameBoard().getGameFlagList();
         List<GameFlag> reminderGameFlagList = gameFlagList.stream()
                 .filter(new Predicate<GameFlag>() {
                     @Override
@@ -115,7 +107,7 @@ public class SingleGameMapActivity extends AppCompatActivity {
                 })
                 .collect(Collectors.toList());
 
-        Location playerLocation = singleGameRoomOperator.getFlagSingleGameBoard().getCurrentPlayerLocation();
+        Location playerLocation = flagGameRoomOperator.getFlagSingleGameBoard().getCurrentPlayerLocation();
         LatLng playerLatlng = new LatLng(playerLocation.getLatitude(),playerLocation.getLongitude());
 
         // player location

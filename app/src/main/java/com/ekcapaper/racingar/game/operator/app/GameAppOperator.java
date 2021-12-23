@@ -1,8 +1,9 @@
-package com.ekcapaper.racingar.game.operator;
+package com.ekcapaper.racingar.game.operator.app;
 
 import android.location.Location;
 
-import com.ekcapaper.racingar.game.board.FlagSingleGameBoard;
+import com.ekcapaper.racingar.game.operator.room.FlagGameRoomOperator;
+import com.ekcapaper.racingar.game.operator.room.GameRoomOperator;
 import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
 
 import java.util.concurrent.ExecutionException;
@@ -28,9 +29,9 @@ public class GameAppOperator extends NakamaNetworkManager {
             FlagSingleGameBoard flagSingleGameBoard = new FlagSingleGameBoard(1, location);
             flagSingleGameBoard.drawFlags();
             if(flagSingleGameBoard.isDrew()){
-                SingleGameRoomOperator singleGameRoomOperator = new SingleGameRoomOperator(session, socketClient, flagSingleGameBoard);
-                singleGameRoomOperator.createMatch();
-                currentGameRoomOperator = singleGameRoomOperator;
+                FlagGameRoomOperator flagGameRoomOperator = new FlagGameRoomOperator(session, socketClient, flagSingleGameBoard);
+                flagGameRoomOperator.createMatch();
+                currentGameRoomOperator = flagGameRoomOperator;
             }
             else{
                 throw new InterruptedException();

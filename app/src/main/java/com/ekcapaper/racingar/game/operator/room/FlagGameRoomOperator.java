@@ -1,8 +1,5 @@
-package com.ekcapaper.racingar.game.operator;
+package com.ekcapaper.racingar.game.operator.room;
 
-import android.location.Location;
-
-import com.ekcapaper.racingar.game.board.FlagSingleGameBoard;
 import com.ekcapaper.racingar.game.message.MessageOpCodeStorage;
 import com.ekcapaper.racingar.game.message.MovePlayerMessage;
 import com.google.gson.Gson;
@@ -15,11 +12,11 @@ import com.heroiclabs.nakama.SocketListener;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
-public class SingleGameRoomOperator extends GameRoomOperator {
+public class FlagGameRoomOperator extends GameRoomOperator {
     private FlagSingleGameBoard flagSingleGameBoard;
     private Consumer<Object> afterPlayerMoveCallback;
 
-    public SingleGameRoomOperator(Session session, SocketClient socketClient, FlagSingleGameBoard flagSingleGameBoard) {
+    public FlagGameRoomOperator(Session session, SocketClient socketClient, FlagSingleGameBoard flagSingleGameBoard) {
         super(session, socketClient);
         this.flagSingleGameBoard = flagSingleGameBoard;
 

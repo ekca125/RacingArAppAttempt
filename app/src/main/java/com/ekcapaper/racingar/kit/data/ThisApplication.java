@@ -5,7 +5,7 @@ import android.content.Context;
 
 import androidx.multidex.MultiDex;
 
-import com.ekcapaper.racingar.game.operator.GameAppOperator;
+import com.ekcapaper.racingar.game.operator.app.GameAppOperator;
 
 public class ThisApplication extends Application {
     GameAppOperator gameAppOperator;

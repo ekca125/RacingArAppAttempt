@@ -5,9 +5,6 @@ import static org.junit.Assert.*;
 import android.location.Location;
 import android.util.Log;
 
-import com.ekcapaper.racingar.game.board.FlagGameBoard;
-import com.ekcapaper.racingar.game.board.FlagSingleGameBoard;
-
 import org.junit.Test;
 
 public class FlagGameBoardTest {

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ekcapaper.racingar.game.operator.GameAppOperator;
+import com.ekcapaper.racingar.game.operator.app.GameAppOperator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.ekcapaper.racingar.kit.R;
 import com.ekcapaper.racingar.kit.data.ThisApplication;

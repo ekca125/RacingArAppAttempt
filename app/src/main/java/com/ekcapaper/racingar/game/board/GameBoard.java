@@ -7,30 +7,28 @@ import com.ekcapaper.racingar.maptool.MapRange;
 import com.ekcapaper.racingar.maptool.MeterToLatitudeConverter;
 import com.ekcapaper.racingar.maptool.MeterToLongitudeConverter;
 
-public class GameBoard {
-    private final double mapSize;
-    private final Location location;
-    private final MapRange mapRange;
+import lombok.Getter;
 
-    protected Location currentPlayerLocation;
-    /*
-        mapsize : kilometer 기준
-    */
-    public GameBoard(double mapSize, Location location) {
-        this.mapSize = mapSize;
-        this.location = location;
+@Getter
+public class GameBoard {
+    private final double mapLengthKilometer;
+    private final MapRange mapRange;
+    private final Location mapCenter;
+
+    public GameBoard(double mapLengthKilometer, Location mapCenter) {
+        this.mapLengthKilometer = mapLengthKilometer;
+        this.mapCenter = mapCenter;
         this.mapRange = calculateMapRange();
-        this.currentPlayerLocation = location;
     }
 
     private MapRange calculateMapRange(){
-        double currentLatitude = location.getLatitude();
-        double currentLongitude = location.getLongitude();
+        double currentLatitude = mapCenter.getLatitude();
+        double currentLongitude = mapCenter.getLongitude();
 
         MeterToLatitudeConverter meterToLatitudeConverter = new MeterToLatitudeConverter();
         MeterToLongitudeConverter meterToLongitudeConverter = new MeterToLongitudeConverter(currentLatitude);
 
-        double distanceKilometer = mapSize / 2;
+        double distanceKilometer = mapLengthKilometer / 2;
 
         double halfHeightLatitude = meterToLatitudeConverter.convertKiloMeterToLatitude(distanceKilometer);
         double halfWidthLongitude = meterToLongitudeConverter.convertKilometerToLongitude(distanceKilometer);
@@ -41,21 +39,5 @@ public class GameBoard {
         double endLongitude = currentLongitude + halfWidthLongitude;
 
         return new MapRange(startLatitude, startLongitude, endLatitude, endLongitude);
-    }
-
-    public double getMapSize() {
-        return mapSize;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public MapRange getMapRange() {
-        return mapRange;
-    }
-
-    public Location getCurrentPlayerLocation() {
-        return currentPlayerLocation;
     }
 }

@@ -1,4 +1,4 @@
-package com.ekcapaper.racingar.game.operator;
+package com.ekcapaper.racingar.game.operator.room;
 
 import android.location.Location;
 
