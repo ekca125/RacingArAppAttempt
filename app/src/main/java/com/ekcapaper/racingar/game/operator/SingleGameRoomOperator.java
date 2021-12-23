@@ -13,6 +13,7 @@ import com.heroiclabs.nakama.SocketClient;
 import com.heroiclabs.nakama.SocketListener;
 
 import java.nio.charset.StandardCharsets;
+import java.util.function.Consumer;
 
 public class SingleGameRoomOperator extends GameRoomOperator {
     private FlagSingleGameBoard flagSingleGameBoard;
@@ -23,7 +24,7 @@ public class SingleGameRoomOperator extends GameRoomOperator {
     }
 
     @Override
-    protected void registerMovePlayerCallback() {
+    protected void registerMovePlayerCallback(Consumer<Location> receiveMessage) {
         SocketListener listener = new AbstractSocketListener() {
             @Override
             public void onMatchData(final MatchData matchData) {

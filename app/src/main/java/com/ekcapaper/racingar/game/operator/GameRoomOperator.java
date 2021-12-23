@@ -11,6 +11,7 @@ import com.heroiclabs.nakama.SocketClient;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
 
 public abstract class GameRoomOperator {
     protected Session session;

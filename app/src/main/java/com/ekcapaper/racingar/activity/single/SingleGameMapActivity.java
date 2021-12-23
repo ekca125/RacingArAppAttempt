@@ -83,10 +83,11 @@ public class SingleGameMapActivity extends AppCompatActivity {
                 }
                 for (Location location : locationResult.getLocations()) {
                     if (location != null) {
+                        // move player
+                        singleGameRoomOperator.sendMovePlayerMessage(location);
+
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
-                        // move player
-
                         Log.d("Test1234", "GPS Location changed " +
                                 "latitude : " + String.valueOf(latitude) +
                                 "longitude : " +String.valueOf(longitude));
