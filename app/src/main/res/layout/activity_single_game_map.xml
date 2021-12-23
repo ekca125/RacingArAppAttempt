@@ -45,7 +45,7 @@
                 android:padding="@dimen/spacing_medium">
 
                 <ImageButton
-                    android:id="@+id/map_button"
+                    android:id="@+id/single_game_map_button"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -75,7 +75,7 @@
                 android:padding="@dimen/spacing_medium">
 
                 <ImageButton
-                    android:id="@+id/list_button"
+                    android:id="@+id/single_game_list_button"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -98,7 +98,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_button"
+        android:id="@+id/single_game_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
