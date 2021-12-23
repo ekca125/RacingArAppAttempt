@@ -2,6 +2,7 @@ package com.ekcapaper.racingar.activity.single;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,42 +19,27 @@ import com.ekcapaper.racingar.kit.R;
 import com.ekcapaper.racingar.kit.data.ThisApplication;
 
 public class SingleGamePrepareActivity extends AppCompatActivity {
-    FusedLocationProviderClient fusedLocationClient;
-    GameAppOperator gameAppOperator;
-    ProgressBar single_game_prepare_progress_indeterminate_circular;
-
+    // 액티비티 기능
     private FusedLocationProviderClient fusedLocationProviderClient;
+    private GameAppOperator gameAppOperator;
+    // ui
+    ProgressBar single_game_prepare_progress_indeterminate_circular;
+    //
     LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_game_prepare);
-
+        // 액티비티 기능
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
+        gameAppOperator = ((ThisApplication) getApplication()).getGameAppOperator();
+        // ui
         single_game_prepare_progress_indeterminate_circular =
                 findViewById(R.id.single_game_prepare_progress_indeterminate_circular);
 
-        gameAppOperator = ((ThisApplication) getApplication()).getGameAppOperator();
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         runProgressDeterminateCircular();
         runPrepareProgress();
-    }
-
-    private void runPrepareProgress() {
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        // 1초 마다
-        locationRequest.setInterval(1000);
-        locationCallback = new LocationCallback(){
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                runMakeRoomProgress(locationResult.getLastLocation());
-            }
-        };
     }
 
     private void runProgressDeterminateCircular() {
@@ -71,15 +57,29 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
         mHandler.post(runnable);
     }
 
-    private void runMakeRoomProgress(Location location) {
-        // 위치를 전달하여 방을 생성하기
-        gameAppOperator.makeSingleRoom(location);
-        if(gameAppOperator.checkCurrentGameRoomOperator()){
-            Toast.makeText(this,"Start Game", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(this,"Make Room Failed",Toast.LENGTH_SHORT).show();
-        }
-        fusedLocationClient.removeLocationUpdates(locationCallback);
+    private void runPrepareProgress() {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(1000);
+        locationCallback = new LocationCallback(){
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                Location location = locationResult.getLastLocation();
+                if(location!=null){
+                    gameAppOperator.makeSingleRoom(location);
+                    if(gameAppOperator.checkCurrentGameRoomOperator()){
+                        Toast.makeText(SingleGamePrepareActivity.this,"Start Game", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(SingleGamePrepareActivity.this,"Make Room Failed",Toast.LENGTH_SHORT).show();
+                    }
+                    fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                    // next activity
+                    Intent intent = new Intent(SingleGamePrepareActivity.this, SingleGameMapActivity.class);
+                    startActivity(intent);
+                }
+            }
+        };
     }
 }
