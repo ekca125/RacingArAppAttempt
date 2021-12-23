@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ekcapaper.racingar.game.message.MessageOpCodeStorage;
+import com.ekcapaper.racingar.game.message.MovePlayerMessage;
 import com.ekcapaper.racingar.game.operator.GameAppOperator;
 import com.ekcapaper.racingar.game.operator.SingleGameRoomOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -29,6 +31,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.ekcapaper.racingar.kit.R;
 import com.ekcapaper.racingar.kit.data.ThisApplication;
 import com.ekcapaper.racingar.kit.utils.Tools;
+import com.google.gson.Gson;
+import com.heroiclabs.nakama.AbstractSocketListener;
+import com.heroiclabs.nakama.MatchData;
+import com.heroiclabs.nakama.SocketListener;
+
+import java.nio.charset.StandardCharsets;
 
 public class SingleGameMapActivity extends AppCompatActivity {
     private GameAppOperator gameAppOperator;
@@ -61,14 +69,7 @@ public class SingleGameMapActivity extends AppCompatActivity {
                 }
                 for (Location location : locationResult.getLocations()) {
                     if (location != null) {
-                        // move player
                         singleGameRoomOperator.sendPlayerMoveMessage(location);
-
-                        double latitude = location.getLatitude();
-                        double longitude = location.getLongitude();
-                        Log.d("Test1234", "GPS Location changed " +
-                                "latitude : " + String.valueOf(latitude) +
-                                "longitude : " +String.valueOf(longitude));
                     }
                 }
             }
@@ -83,6 +84,9 @@ public class SingleGameMapActivity extends AppCompatActivity {
         Tools.setSystemBarColor(this, R.color.colorPrimary);
 
         initFusedLocation();
+
+        // start game
+
     }
 
     private void initMapFragment() {

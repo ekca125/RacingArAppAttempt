@@ -32,6 +32,7 @@ public abstract class GameRoomOperator {
 
     public void joinMatch(String matchId) throws ExecutionException, InterruptedException {
         this.match = socketClient.joinMatch(matchId).get();
+
     }
 
     public String getMatchId(){
@@ -60,8 +61,5 @@ public abstract class GameRoomOperator {
 
         socketClient.sendMatchData(match.getMatchId(),MessageOpCodeStorage.MOVE_PLAYER_MESSAGE,payload.getBytes(StandardCharsets.UTF_8));
     }
-
-    public void receivePlayerMoveMessageCallback(SocketListener listener){
-        socketClient.connect(session,listener);
-    }
+    abstract public void startReceiveMessageCallback();
 }
