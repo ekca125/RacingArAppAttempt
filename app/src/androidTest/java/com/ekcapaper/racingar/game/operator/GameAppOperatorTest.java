@@ -3,11 +3,15 @@ package com.ekcapaper.racingar.game.operator;
 import static org.junit.Assert.*;
 
 import android.location.Location;
+import android.util.Log;
+
+import com.ekcapaper.racingar.game.message.MovePlayerMessage;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
 
 public class GameAppOperatorTest {
     static GameAppOperator gameAppOperator;
@@ -38,7 +42,7 @@ public class GameAppOperatorTest {
     }
 
     @Test
-    public void singleGame() {
+    public void singleGame() throws ExecutionException, InterruptedException {
         double latitude = 35.0979529784;
         double longitude = 129.0219886069;
 
@@ -47,7 +51,24 @@ public class GameAppOperatorTest {
         location.setLongitude(longitude);
 
         gameAppOperator.makeSingleRoom(location);
-        gameAppOperator.checkCurrentGameRoomOperator();
+        boolean check = gameAppOperator.checkCurrentGameRoomOperator();
+        assertTrue(check);
+
+        SingleGameRoomOperator singleGameRoomOperator = (SingleGameRoomOperator) gameAppOperator.getCurrentGameRoomOperator();
+
+        singleGameRoomOperator.createMatch();
+        boolean check2 = gameAppOperator.checkCurrentGameRoomOperator();
+        assertTrue(check2);
+
+        singleGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) {
+                MovePlayerMessage movePlayerMessage = (MovePlayerMessage) o;
+                Log.d("test1","teste2");
+            }
+        });
+        singleGameRoomOperator.startReceiveMessageCallback();
+        singleGameRoomOperator.sendPlayerMoveMessage(location);
     }
 
 }

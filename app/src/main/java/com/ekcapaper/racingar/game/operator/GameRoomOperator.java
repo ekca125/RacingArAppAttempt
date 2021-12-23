@@ -51,7 +51,7 @@ public abstract class GameRoomOperator {
         double longitude = location.getLongitude();
 
         MovePlayerMessage movePlayerMessage = MovePlayerMessage.builder()
-                .userName(username)
+                .userIdentifier(username)
                 .latitude(latitude)
                 .longitude(longitude)
                 .build();
