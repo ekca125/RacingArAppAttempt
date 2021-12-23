@@ -14,7 +14,7 @@ public class FlagSingleGameBoard extends FlagGameBoard{
     @Override
     public void movePlayer(Location location) {
         this.currentPlayerLocation = location;
-        addressDtoList = addressDtoList
+        gameFlagList = gameFlagList
                 .stream()
                 .filter((addressDto -> {
                     Location address1 = new Location("");

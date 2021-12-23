@@ -10,25 +10,23 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 
 public abstract class FlagGameBoard extends GameBoard{
-    protected List<AddressDto> addressDtoList;
+    protected List<GameFlag> gameFlagList;
 
     public FlagGameBoard(double mapSize, Location location) {
         super(mapSize, location);
-        addressDtoList = null;
-    }
-
-    public List<AddressDto> getAddressDtoList() {
-        return addressDtoList;
+        gameFlagList = null;
     }
 
     public boolean isDrew(){
-        return addressDtoList != null;
+        return gameFlagList != null;
     }
 
     public void drawFlags(){
@@ -41,11 +39,19 @@ public abstract class FlagGameBoard extends GameBoard{
                 if(response.isSuccessful()){
                     String body = response.body();
                     Gson gson = new Gson();
-                    addressDtoList = gson.fromJson(body, new TypeToken<ArrayList<AddressDto>>(){}.getType());
+                    List<AddressDto> addressDtoList = gson.fromJson(body, new TypeToken<ArrayList<AddressDto>>(){}.getType());
+                    gameFlagList = addressDtoList.stream()
+                            .map(new Function<AddressDto, GameFlag>() {
+                                @Override
+                                public GameFlag apply(AddressDto addressDto) {
+                                    return new GameFlag(addressDto);
+                                }
+                            })
+                            .collect(Collectors.toList());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                addressDtoList = null;
+                gameFlagList = null;
             }
         }
     }

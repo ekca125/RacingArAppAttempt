@@ -37,6 +37,7 @@ import com.heroiclabs.nakama.MatchData;
 import com.heroiclabs.nakama.SocketListener;
 
 import java.nio.charset.StandardCharsets;
+import java.util.function.Consumer;
 
 public class SingleGameMapActivity extends AppCompatActivity {
     private GameAppOperator gameAppOperator;
@@ -86,7 +87,13 @@ public class SingleGameMapActivity extends AppCompatActivity {
         initFusedLocation();
 
         // start game
+        singleGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) {
 
+            }
+        });
+        singleGameRoomOperator.startReceiveMessageCallback();
     }
 
     private void initMapFragment() {
