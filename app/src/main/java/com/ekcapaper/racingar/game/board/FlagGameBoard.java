@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import retrofit2.Call;
@@ -21,6 +22,20 @@ import retrofit2.Response;
 
 
 public abstract class FlagGameBoard extends GameBoard{
+    public class GameFlag extends AddressDto{
+        @Setter
+        @Getter
+        String owner;
+        //userIdentifier
+        @Builder
+        public GameFlag(long id, double latitude, double longitude, String owner) {
+            super(id, latitude, longitude);
+            this.owner = owner;
+        }
+    }
+
+
+
     public class GameFlag extends AddressDto {
         @Setter
         @Getter

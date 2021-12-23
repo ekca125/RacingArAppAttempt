@@ -21,6 +21,7 @@ public class FlagGameRoomOperator extends GameRoomOperator {
         this.flagSingleGameBoard = flagSingleGameBoard;
 
         this.afterPlayerMoveCallback = null;
+
     }
     
     
