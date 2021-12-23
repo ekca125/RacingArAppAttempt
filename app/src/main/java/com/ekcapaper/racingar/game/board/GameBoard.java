@@ -54,4 +54,8 @@ public class GameBoard {
     public MapRange getMapRange() {
         return mapRange;
     }
+
+    public Location getCurrentPlayerLocation() {
+        return currentPlayerLocation;
+    }
 }
