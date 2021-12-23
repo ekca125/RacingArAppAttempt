@@ -5,13 +5,13 @@ import lombok.Getter;
 
 @Getter
 public class MovePlayerMessage {
-    String userName;
+    String userIdentifier;
     double latitude;
     double longitude;
 
     @Builder
-    public MovePlayerMessage(String userName, double latitude, double longitude) {
-        this.userName = userName;
+    public MovePlayerMessage(String userIdentifier, double latitude, double longitude) {
+        this.userIdentifier = userIdentifier;
         this.latitude = latitude;
         this.longitude = longitude;
     }

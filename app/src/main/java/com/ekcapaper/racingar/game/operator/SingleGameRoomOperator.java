@@ -43,12 +43,8 @@ public class SingleGameRoomOperator extends GameRoomOperator {
                         String json = new String(matchData.getData(), StandardCharsets.UTF_8);
                         MovePlayerMessage movePlayerMessage = gson.fromJson(json,MovePlayerMessage.class);
 
-                        Location location = new Location("");
-                        location.setLatitude(movePlayerMessage.getLatitude());
-                        location.setLongitude(movePlayerMessage.getLongitude());
-
-                        flagSingleGameBoard.movePlayer(location);
-                        afterPlayerMoveCallback.accept(new Object());
+                        flagSingleGameBoard.movePlayer(movePlayerMessage);
+                        afterPlayerMoveCallback.accept(movePlayerMessage);
                         break;
                     default:
                         break;

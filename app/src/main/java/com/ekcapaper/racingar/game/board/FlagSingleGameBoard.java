@@ -19,13 +19,10 @@ public class FlagSingleGameBoard extends FlagGameBoard{
         playerLocation.setLatitude(movePlayerMessage.getLatitude());
         playerLocation.setLongitude(movePlayerMessage.getLongitude());
 
-        this.currentPlayerLocation = movePlayerMessage.;
+        this.currentPlayerLocation = playerLocation;
         for(int i=0; i<gameFlagList.size();i++){
             GameFlag gameFlag = gameFlagList.get(i);
-            if(gameFlag.checkOwned()){
-                continue;
-            }
-            else {
+            if(!gameFlag.checkOwned()){
                 Location address1 = new Location("");
                 address1.setLatitude(gameFlag.getLatitude());
                 address1.setLongitude(gameFlag.getLongitude());
@@ -38,7 +35,7 @@ public class FlagSingleGameBoard extends FlagGameBoard{
                 }
 
                 if(distance <= FLAG_GET_DISTANCE){
-                    gameFlag.setOwner();
+                    gameFlag.setOwner(movePlayerMessage.getUserIdentifier());
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.ekcapaper.racingar.game.board;
 import android.location.Location;
 
 import com.ekcapaper.racingar.dto.AddressDto;
+import com.ekcapaper.racingar.game.message.MovePlayerMessage;
 import com.ekcapaper.racingar.retrofit.RetrofitRwabClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -60,7 +61,7 @@ public abstract class FlagGameBoard extends GameBoard{
         }
     }
 
-    abstract public void movePlayer(Location location);
+    abstract public void movePlayer(MovePlayerMessage movePlayerMessage);
 }
 
 
