@@ -2,6 +2,8 @@ package com.ekcapaper.racingar.game.operator;
 
 import static org.junit.Assert.*;
 
+import android.location.Location;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -36,18 +38,16 @@ public class GameAppOperatorTest {
     }
 
     @Test
-    public void checkCurrentGameRoomOperator() {
+    public void singleGame() {
+        double latitude = 35.0979529784;
+        double longitude = 129.0219886069;
+
+        Location location = new Location("");
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+
+        gameAppOperator.makeSingleRoom(location);
+        gameAppOperator.checkCurrentGameRoomOperator();
     }
 
-    @Test
-    public void leaveRoom() {
-    }
-
-    @Test
-    public void makeSingleRoom() {
-    }
-
-    @Test
-    public void getCurrentGameRoomOperator() {
-    }
 }
