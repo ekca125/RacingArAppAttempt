@@ -2,6 +2,7 @@ package com.ekcapaper.racingar.game.operator.app;
 
 import android.location.Location;
 
+import com.ekcapaper.racingar.game.board.FlagGameBoard;
 import com.ekcapaper.racingar.game.operator.room.FlagGameRoomOperator;
 import com.ekcapaper.racingar.game.operator.room.GameRoomOperator;
 import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
@@ -25,20 +26,19 @@ public class GameAppOperator extends NakamaNetworkManager {
     }
 
     public void makeSingleRoom(Location location) {
-        try {
-            FlagSingleGameBoard flagSingleGameBoard = new FlagSingleGameBoard(1, location);
-            flagSingleGameBoard.drawFlags();
-            if(flagSingleGameBoard.isDrew()){
-                FlagGameRoomOperator flagGameRoomOperator = new FlagGameRoomOperator(session, socketClient, flagSingleGameBoard);
+        FlagGameBoard flagGameBoard = new FlagGameBoard(1,location);
+        flagGameBoard.drawFlags();
+        if(flagGameBoard.isDrew()){
+            FlagGameRoomOperator flagGameRoomOperator = new FlagGameRoomOperator(session, socketClient, flagGameBoard);
+            try {
                 flagGameRoomOperator.createMatch();
                 currentGameRoomOperator = flagGameRoomOperator;
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+                currentGameRoomOperator = null;
             }
-            else{
-                throw new InterruptedException();
-            }
-            currentGameRoomOperator.createMatch();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+        }
+        else{
             currentGameRoomOperator = null;
         }
     }

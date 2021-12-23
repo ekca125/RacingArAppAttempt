@@ -21,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 
-public abstract class FlagGameBoard extends MultiGameBoard{
+public class FlagGameBoard extends MultiGameBoard{
     public static class GameFlag{
         //userIdentifier
         String owner;
