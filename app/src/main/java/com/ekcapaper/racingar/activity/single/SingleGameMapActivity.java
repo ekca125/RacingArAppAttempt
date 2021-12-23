@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ekcapaper.racingar.game.board.GameFlag;
 import com.ekcapaper.racingar.game.message.MessageOpCodeStorage;
 import com.ekcapaper.racingar.game.message.MovePlayerMessage;
 import com.ekcapaper.racingar.game.operator.GameAppOperator;
@@ -31,13 +32,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.ekcapaper.racingar.kit.R;
 import com.ekcapaper.racingar.kit.data.ThisApplication;
 import com.ekcapaper.racingar.kit.utils.Tools;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.heroiclabs.nakama.AbstractSocketListener;
 import com.heroiclabs.nakama.MatchData;
 import com.heroiclabs.nakama.SocketListener;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SingleGameMapActivity extends AppCompatActivity {
     private GameAppOperator gameAppOperator;
@@ -96,10 +102,34 @@ public class SingleGameMapActivity extends AppCompatActivity {
         singleGameRoomOperator.startReceiveMessageCallback();
     }
 
-
+    Marker marker = null;
     // marker
     private void refreshScreenMap(){
+        List<GameFlag> gameFlagList = singleGameRoomOperator.getFlagSingleGameBoard().getGameFlagList();
+        List<GameFlag> reminderGameFlagList = gameFlagList.stream()
+                .filter(new Predicate<GameFlag>() {
+                    @Override
+                    public boolean test(GameFlag gameFlag) {
+                        return !gameFlag.checkOwned();
+                    }
+                })
+                .collect(Collectors.toList());
 
+        Location playerLocation = singleGameRoomOperator.getFlagSingleGameBoard().getCurrentPlayerLocation();
+        LatLng playerLatlng = new LatLng(playerLocation.getLatitude(),playerLocation.getLongitude());
+
+        // player location
+        if(marker != null){
+            marker.remove();
+            marker = null;
+        }
+
+        marker = mMap.addMarker(new MarkerOptions()
+                .position(playerLatlng)
+                .title("Marker"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(playerLatlng));
+
+        // flags
 
     }
 

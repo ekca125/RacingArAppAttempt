@@ -16,7 +16,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
+import lombok.Getter;
+
 public abstract class GameRoomOperator {
+    @Getter
     protected Session session;
     protected SocketClient socketClient;
     protected Match match;

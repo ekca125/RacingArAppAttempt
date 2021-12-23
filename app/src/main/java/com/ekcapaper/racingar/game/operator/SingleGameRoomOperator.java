@@ -19,7 +19,6 @@ public class SingleGameRoomOperator extends GameRoomOperator {
     private FlagSingleGameBoard flagSingleGameBoard;
     private Consumer<Object> afterPlayerMoveCallback;
 
-
     public SingleGameRoomOperator(Session session, SocketClient socketClient, FlagSingleGameBoard flagSingleGameBoard) {
         super(session, socketClient);
         this.flagSingleGameBoard = flagSingleGameBoard;
@@ -57,5 +56,9 @@ public class SingleGameRoomOperator extends GameRoomOperator {
     // 액티비티에서 추가적으로 처리해야 할 내용
     public void setAfterPlayerMoveCallback(Consumer<Object> afterPlayerMoveCallback){
         this.afterPlayerMoveCallback = afterPlayerMoveCallback;
+    }
+
+    public FlagSingleGameBoard getFlagSingleGameBoard() {
+        return flagSingleGameBoard;
     }
 }

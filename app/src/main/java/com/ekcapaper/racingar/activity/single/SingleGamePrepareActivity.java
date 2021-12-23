@@ -8,11 +8,15 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ekcapaper.racingar.game.operator.GameAppOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.ekcapaper.racingar.kit.R;
@@ -23,11 +27,15 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
     GameAppOperator gameAppOperator;
     ProgressBar single_game_prepare_progress_indeterminate_circular;
 
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_game_prepare);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         single_game_prepare_progress_indeterminate_circular =
                 findViewById(R.id.single_game_prepare_progress_indeterminate_circular);
@@ -40,24 +48,17 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
     }
 
     private void runPrepareProgress() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // 위치를 가져오는데 성공하면 방을 만드는 콜백 실행
-                        runMakeRoomProgress(location);
-                    }
-                });
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        // 1초 마다
+        locationRequest.setInterval(1000);
+        locationCallback = new LocationCallback(){
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                runMakeRoomProgress(locationResult.getLastLocation());
+            }
+        };
     }
 
     private void runProgressDeterminateCircular() {
@@ -84,5 +85,6 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
         else{
             Toast.makeText(this,"Make Room Failed",Toast.LENGTH_SHORT).show();
         }
+        fusedLocationClient.removeLocationUpdates(locationCallback);
     }
 }
