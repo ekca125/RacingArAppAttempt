@@ -64,7 +64,6 @@ public class GameAppOperatorTest {
             @Override
             public void accept(Object o) {
                 MovePlayerMessage movePlayerMessage = (MovePlayerMessage) o;
-                Log.d("test1","teste2");
             }
         });
         singleGameRoomOperator.startReceiveMessageCallback();
