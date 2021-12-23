@@ -82,16 +82,14 @@ public class SingleGameMapActivity extends AppCompatActivity {
             }
         };
         initMapFragment();
-        initFusedLocation();
         //
-        afterPlayerMoveCallback = new Consumer<Object>() {
+        flagGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
             @Override
             public void accept(Object o) {
                 // RoomOperator 에서 처리된 이후에 진행할 내용
                 // 지도의 화면 동기화
             }
-        };
-        flagGameRoomOperator.setAfterPlayerMoveCallback(afterPlayerMoveCallback);
+        });
     }
 
 
@@ -113,7 +111,6 @@ public class SingleGameMapActivity extends AppCompatActivity {
 
     private void initFusedLocation() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        startLocationCallback();
     }
 
     private void startLocationCallback(){
