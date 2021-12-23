@@ -11,7 +11,6 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ekcapaper.racingar.game.board.GameFlag;
 import com.ekcapaper.racingar.game.operator.app.GameAppOperator;
 import com.ekcapaper.racingar.game.operator.room.FlagGameRoomOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -38,31 +37,40 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class SingleGameMapActivity extends AppCompatActivity {
+    // 액티비티 기능
     private GameAppOperator gameAppOperator;
     private FlagGameRoomOperator flagGameRoomOperator;
-
-    private GoogleMap mMap;
+    // ui
+    private GoogleMap map_single_game;
+    // 위치 기능
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
+    // 위치 메시지 받은 이후의 처리
+    private Consumer<Object> afterPlayerMoveCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_game_map);
-
+        // system bar
+        Tools.setSystemBarColor(this, R.color.colorPrimary);
+        // 액티비티 기능
         gameAppOperator = ((ThisApplication)getApplicationContext()).getGameAppOperator();
         if(gameAppOperator.checkCurrentGameRoomOperator()){
             flagGameRoomOperator = (FlagGameRoomOperator) gameAppOperator.getCurrentGameRoomOperator();
         }
         else{
-            // 없는 경우에는 종료
             Toast.makeText(this,"오류 : 정상적인 접근이 아닙니다.",Toast.LENGTH_SHORT).show();
             finish();
         }
-
-        locationCallback = new LocationCallback() {
+        // ui (initMapFragment)
+        map_single_game = null;
+        // 위치 기능
+        fusedLocationProviderClient = new FusedLocationProviderClient(this);
+        locationCallback = new LocationCallback(){
             @Override
             public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
                 if (locationResult == null) {
                     return;
                 }
@@ -72,66 +80,29 @@ public class SingleGameMapActivity extends AppCompatActivity {
                     }
                 }
             }
-
-            @Override
-            public void onLocationAvailability(LocationAvailability locationAvailability) {
-                super.onLocationAvailability(locationAvailability);
-            }
         };
-
         initMapFragment();
-        Tools.setSystemBarColor(this, R.color.colorPrimary);
-
         initFusedLocation();
-
-        // start game
-        flagGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
+        //
+        afterPlayerMoveCallback = new Consumer<Object>() {
             @Override
             public void accept(Object o) {
-                refreshScreenMap();
+                // RoomOperator 에서 처리된 이후에 진행할 내용
+                // 지도의 화면 동기화
             }
-        });
-        flagGameRoomOperator.startReceiveMessageCallback();
+        };
+        flagGameRoomOperator.setAfterPlayerMoveCallback(afterPlayerMoveCallback);
     }
 
-    Marker marker = null;
-    // marker
-    private void refreshScreenMap(){
-        List<GameFlag> gameFlagList = flagGameRoomOperator.getFlagSingleGameBoard().getGameFlagList();
-        List<GameFlag> reminderGameFlagList = gameFlagList.stream()
-                .filter(new Predicate<GameFlag>() {
-                    @Override
-                    public boolean test(GameFlag gameFlag) {
-                        return !gameFlag.checkOwned();
-                    }
-                })
-                .collect(Collectors.toList());
-
-        Location playerLocation = flagGameRoomOperator.getFlagSingleGameBoard().getCurrentPlayerLocation();
-        LatLng playerLatlng = new LatLng(playerLocation.getLatitude(),playerLocation.getLongitude());
-
-        // player location
-        if(marker != null){
-            marker.remove();
-            marker = null;
-        }
-
-        marker = mMap.addMarker(new MarkerOptions()
-                .position(playerLatlng)
-                .title("Marker"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(playerLatlng));
-
-        // flags
-
-    }
 
     private void initMapFragment() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_single_game);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                mMap = Tools.configActivityMaps(googleMap);
-                mMap.moveCamera(zoomingLocation());
+                map_single_game = Tools.configActivityMaps(googleMap);
+                map_single_game.moveCamera(zoomingLocation());
+                flagGameRoomOperator.startReceiveMessageCallback();
             }
         });
     }
