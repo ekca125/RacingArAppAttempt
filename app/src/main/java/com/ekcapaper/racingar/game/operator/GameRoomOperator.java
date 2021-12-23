@@ -5,9 +5,12 @@ import android.location.Location;
 import com.ekcapaper.racingar.game.message.MessageOpCodeStorage;
 import com.ekcapaper.racingar.game.message.MovePlayerMessage;
 import com.google.gson.Gson;
+import com.heroiclabs.nakama.AbstractSocketListener;
 import com.heroiclabs.nakama.Match;
+import com.heroiclabs.nakama.MatchData;
 import com.heroiclabs.nakama.Session;
 import com.heroiclabs.nakama.SocketClient;
+import com.heroiclabs.nakama.SocketListener;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
@@ -29,7 +32,6 @@ public abstract class GameRoomOperator {
 
     public void joinMatch(String matchId) throws ExecutionException, InterruptedException {
         this.match = socketClient.joinMatch(matchId).get();
-        registerMovePlayerCallback();
     }
 
     public String getMatchId(){
@@ -42,7 +44,7 @@ public abstract class GameRoomOperator {
         match = null;
     }
 
-    public void sendMovePlayerMessage(Location location){
+    public void sendPlayerMoveMessage(Location location){
         String username = session.getUsername();
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
@@ -59,5 +61,7 @@ public abstract class GameRoomOperator {
         socketClient.sendMatchData(match.getMatchId(),MessageOpCodeStorage.MOVE_PLAYER_MESSAGE,payload.getBytes(StandardCharsets.UTF_8));
     }
 
-    protected abstract void registerMovePlayerCallback();
+    public void receivePlayerMoveMessageCallback(SocketListener listener){
+        socketClient.connect(session,listener);
+    }
 }

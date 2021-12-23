@@ -22,30 +22,4 @@ public class SingleGameRoomOperator extends GameRoomOperator {
         super(session, socketClient);
         this.flagSingleGameBoard = flagSingleGameBoard;
     }
-
-    @Override
-    protected void registerMovePlayerCallback(Consumer<Location> receiveMessage) {
-        SocketListener listener = new AbstractSocketListener() {
-            @Override
-            public void onMatchData(final MatchData matchData) {
-                switch ((int) matchData.getOpCode()){
-                    case MessageOpCodeStorage.MOVE_PLAYER_MESSAGE:
-                        Gson gson = new Gson();
-                        String json = new String(matchData.getData(), StandardCharsets.UTF_8);
-                        MovePlayerMessage movePlayerMessage = gson.fromJson(json,MovePlayerMessage.class);
-
-                        Location location = new Location("");
-                        location.setLatitude(movePlayerMessage.getLatitude());
-                        location.setLongitude(movePlayerMessage.getLongitude());
-
-                        flagSingleGameBoard.movePlayer(location);
-                        //System.out.format("Received match data %s with opcode %d", matchData.getData(), matchData.getOpCode());
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
-        socketClient.connect(session,listener);
-    }
 }

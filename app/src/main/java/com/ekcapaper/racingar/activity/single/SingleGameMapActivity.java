@@ -53,6 +53,32 @@ public class SingleGameMapActivity extends AppCompatActivity {
             finish();
         }
 
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    if (location != null) {
+                        // move player
+                        singleGameRoomOperator.sendPlayerMoveMessage(location);
+
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+                        Log.d("Test1234", "GPS Location changed " +
+                                "latitude : " + String.valueOf(latitude) +
+                                "longitude : " +String.valueOf(longitude));
+                    }
+                }
+            }
+
+            @Override
+            public void onLocationAvailability(LocationAvailability locationAvailability) {
+                super.onLocationAvailability(locationAvailability);
+            }
+        };
+
         initMapFragment();
         Tools.setSystemBarColor(this, R.color.colorPrimary);
 
@@ -75,32 +101,6 @@ public class SingleGameMapActivity extends AppCompatActivity {
     }
 
     private void initFusedLocation() {
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    if (location != null) {
-                        // move player
-                        singleGameRoomOperator.sendMovePlayerMessage(location);
-
-                        double latitude = location.getLatitude();
-                        double longitude = location.getLongitude();
-                        Log.d("Test1234", "GPS Location changed " +
-                                "latitude : " + String.valueOf(latitude) +
-                                "longitude : " +String.valueOf(longitude));
-                    }
-                }
-            }
-
-            @Override
-            public void onLocationAvailability(LocationAvailability locationAvailability) {
-                super.onLocationAvailability(locationAvailability);
-            }
-        };
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         startLocationCallback();
     }
