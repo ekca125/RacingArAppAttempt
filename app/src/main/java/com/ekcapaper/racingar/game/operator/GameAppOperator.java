@@ -1,20 +1,11 @@
-package com.ekcapaper.racingar.game;
+package com.ekcapaper.racingar.game.operator;
 
-import android.content.Intent;
 import android.location.Location;
 
-import com.ekcapaper.racingar.dto.AddressDto;
+import com.ekcapaper.racingar.game.board.FlagSingleGameBoard;
 import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
-import com.ekcapaper.racingar.retrofit.RetrofitRwabClient;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import retrofit2.Call;
 
 public class GameAppOperator extends NakamaNetworkManager {
     private GameRoomOperator currentGameRoomOperator;
@@ -34,10 +25,10 @@ public class GameAppOperator extends NakamaNetworkManager {
 
     public void makeSingleRoom(Location location) {
         try {
-            FlagGameBoard flagGameBoard = new FlagGameBoard(1, location);
-            flagGameBoard.drawFlags();
-            if(flagGameBoard.isDrew()){
-                SingleGameRoomOperator singleGameRoomOperator = new SingleGameRoomOperator(socketClient, flagGameBoard);
+            FlagSingleGameBoard flagSingleGameBoard = new FlagSingleGameBoard(1, location);
+            flagSingleGameBoard.drawFlags();
+            if(flagSingleGameBoard.isDrew()){
+                SingleGameRoomOperator singleGameRoomOperator = new SingleGameRoomOperator(session, socketClient, flagSingleGameBoard);
                 singleGameRoomOperator.createMatch();
                 currentGameRoomOperator = singleGameRoomOperator;
             }

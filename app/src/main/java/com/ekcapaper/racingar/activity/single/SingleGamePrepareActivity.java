@@ -1,6 +1,5 @@
 package com.ekcapaper.racingar.activity.single;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -12,28 +11,18 @@ import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.ekcapaper.racingar.game.GameAppOperator;
+import com.ekcapaper.racingar.game.operator.GameAppOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.ekcapaper.racingar.kit.R;
 import com.ekcapaper.racingar.kit.data.ThisApplication;
 
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
-
 public class SingleGamePrepareActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationClient;
-
     GameAppOperator gameAppOperator;
     ProgressBar single_game_prepare_progress_indeterminate_circular;
 
-    final int LOCATION_PERMISSON_REQUEST_CODE = 2;
-
-    String[] permissions = new String[]{
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,31 +39,25 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
         runPrepareProgress();
     }
 
-    @AfterPermissionGranted(LOCATION_PERMISSON_REQUEST_CODE)
     private void runPrepareProgress() {
-        // 권한 체크
-        if (EasyPermissions.hasPermissions(this, permissions)) {
-            // 권한 체크 2
-            if (ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            fusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            // 위치를 가져오는데 성공하면 방을 만드는 콜백 실행
-                            runMakeRoomProgress(location);
-                        }
-                    });
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
         }
-        else{
-            // 권한이 없는 경우
-            EasyPermissions.requestPermissions(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION.toString(),
-                    LOCATION_PERMISSON_REQUEST_CODE, permissions);
-        }
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // 위치를 가져오는데 성공하면 방을 만드는 콜백 실행
+                        runMakeRoomProgress(location);
+                    }
+                });
     }
 
     private void runProgressDeterminateCircular() {
@@ -102,11 +85,4 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
             Toast.makeText(this,"Make Room Failed",Toast.LENGTH_SHORT).show();
         }
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
 }
