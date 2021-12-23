@@ -1,11 +1,16 @@
 package com.ekcapaper.racingar.activity.single;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -61,18 +66,17 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(1000);
-        locationCallback = new LocationCallback(){
+        locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 Location location = locationResult.getLastLocation();
-                if(location!=null){
+                if (location != null) {
                     gameAppOperator.makeSingleRoom(location);
-                    if(gameAppOperator.checkCurrentGameRoomOperator()){
-                        Toast.makeText(SingleGamePrepareActivity.this,"Start Game", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(SingleGamePrepareActivity.this,"Make Room Failed",Toast.LENGTH_SHORT).show();
+                    if (gameAppOperator.checkCurrentGameRoomOperator()) {
+                        Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
                     }
                     fusedLocationProviderClient.removeLocationUpdates(locationCallback);
                     // next activity
@@ -81,5 +85,14 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
                 }
             }
         };
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        fusedLocationProviderClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper());
     }
 }
