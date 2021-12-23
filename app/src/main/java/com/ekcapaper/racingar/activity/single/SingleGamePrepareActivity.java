@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.ekcapaper.racingar.activity.MainActivity;
 import com.ekcapaper.racingar.game.operator.app.GameAppOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -44,7 +45,7 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
                 findViewById(R.id.single_game_prepare_progress_indeterminate_circular);
 
         runProgressDeterminateCircular();
-        runPrepareProgress();
+        //runPrepareProgress();
     }
 
     private void runProgressDeterminateCircular() {
@@ -62,6 +63,22 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
         mHandler.post(runnable);
     }
 
+    private void runPrepare(Location location) {
+        if (location != null) {
+            gameAppOperator.makeSingleRoom(location);
+            Log.d("testetst", "abcd");
+            if (gameAppOperator.checkCurrentGameRoomOperator()) {
+                Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
+                //fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                // next activity
+                Intent intent = new Intent(SingleGamePrepareActivity.this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private void runPrepareProgress() {
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -71,18 +88,7 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 Location location = locationResult.getLastLocation();
-                if (location != null) {
-                    gameAppOperator.makeSingleRoom(location);
-                    if (gameAppOperator.checkCurrentGameRoomOperator()) {
-                        Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
-                    }
-                    fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-                    // next activity
-                    Intent intent = new Intent(SingleGamePrepareActivity.this, SingleGameMapActivity.class);
-                    startActivity(intent);
-                }
+                runPrepare(location);
             }
         };
 

@@ -137,13 +137,13 @@ public class SingleGameMapActivity extends AppCompatActivity {
     public void clickAction(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.map_button:
+            case R.id.single_game_map_button:
                 Toast.makeText(getApplicationContext(), "Map Clicked", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.list_button:
+            case R.id.single_game_list_button:
                 Toast.makeText(getApplicationContext(), "List Clicked", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.add_button:
+            case R.id.single_game_add_button:
                 Toast.makeText(getApplicationContext(), "Add Clicked", Toast.LENGTH_SHORT).show();
                 break;
         }
