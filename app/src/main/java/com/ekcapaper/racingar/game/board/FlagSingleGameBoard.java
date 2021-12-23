@@ -2,6 +2,8 @@ package com.ekcapaper.racingar.game.board;
 
 import android.location.Location;
 
+import com.ekcapaper.racingar.game.message.MovePlayerMessage;
+
 import java.util.stream.Collectors;
 
 public class FlagSingleGameBoard extends FlagGameBoard{
@@ -12,18 +14,33 @@ public class FlagSingleGameBoard extends FlagGameBoard{
     }
 
     @Override
-    public void movePlayer(Location location) {
-        this.currentPlayerLocation = location;
-        gameFlagList = gameFlagList
-                .stream()
-                .filter((addressDto -> {
-                    Location address1 = new Location("");
-                    address1.setLatitude(addressDto.getLatitude());
-                    address1.setLongitude(addressDto.getLongitude());
+    public void movePlayer(MovePlayerMessage movePlayerMessage) {
+        Location playerLocation = new Location("");
+        playerLocation.setLatitude(movePlayerMessage.getLatitude());
+        playerLocation.setLongitude(movePlayerMessage.getLongitude());
 
-                    Location address2 = currentPlayerLocation;
-                    return !(address1.distanceTo(address2) < FLAG_GET_DISTANCE);
-                }))
-                .collect(Collectors.toList());
+        this.currentPlayerLocation = movePlayerMessage.;
+        for(int i=0; i<gameFlagList.size();i++){
+            GameFlag gameFlag = gameFlagList.get(i);
+            if(gameFlag.checkOwned()){
+                continue;
+            }
+            else {
+                Location address1 = new Location("");
+                address1.setLatitude(gameFlag.getLatitude());
+                address1.setLongitude(gameFlag.getLongitude());
+
+                Location address2 = currentPlayerLocation;
+
+                double distance = address1.distanceTo(address2);
+                if(distance < 0){
+                    distance = -distance;
+                }
+
+                if(distance <= FLAG_GET_DISTANCE){
+                    gameFlag.setOwner();
+                }
+            }
+        }
     }
 }
