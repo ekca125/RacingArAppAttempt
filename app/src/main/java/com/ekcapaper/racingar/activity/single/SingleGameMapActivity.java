@@ -45,8 +45,6 @@ public class SingleGameMapActivity extends AppCompatActivity {
     // 위치 기능
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
-    // 위치 메시지 받은 이후의 처리
-    private Consumer<Object> afterPlayerMoveCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,35 +61,20 @@ public class SingleGameMapActivity extends AppCompatActivity {
             Toast.makeText(this,"오류 : 정상적인 접근이 아닙니다.",Toast.LENGTH_SHORT).show();
             finish();
         }
-        // ui (initMapFragment)
-        map_single_game = null;
-        // 위치 기능
-        fusedLocationProviderClient = new FusedLocationProviderClient(this);
-        locationCallback = new LocationCallback(){
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    if (location != null) {
-                        flagGameRoomOperator.sendPlayerMoveMessage(location);
-                    }
-                }
-            }
-        };
         initMapFragment();
-        //
-        flagGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
-            @Override
-            public void accept(Object o) {
-                // RoomOperator 에서 처리된 이후에 진행할 내용
-                // 지도의 화면 동기화
-            }
-        });
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopLocationCallback();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startLocationCallback();
+    }
 
     private void initMapFragment() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_single_game);
@@ -99,18 +82,33 @@ public class SingleGameMapActivity extends AppCompatActivity {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map_single_game = Tools.configActivityMaps(googleMap);
-                map_single_game.moveCamera(zoomingLocation());
+                map_single_game.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.541, 126.986), 13));
+                // 위치 기능 시작
+                fusedLocationProviderClient = new FusedLocationProviderClient(SingleGameMapActivity.this);
+                locationCallback = new LocationCallback(){
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        if (locationResult == null) {
+                            return;
+                        }
+                        for (Location location : locationResult.getLocations()) {
+                            if (location != null) {
+                                flagGameRoomOperator.sendPlayerMoveMessage(location);
+                            }
+                        }
+                    }
+                };
+                flagGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) {
+                        // RoomOperator 에서 처리된 이후에 진행할 내용
+                        // 지도의 화면 동기화
+                    }
+                });
                 flagGameRoomOperator.startReceiveMessageCallback();
             }
         });
-    }
-
-    private CameraUpdate zoomingLocation() {
-        return CameraUpdateFactory.newLatLngZoom(new LatLng(37.541, 126.986), 13);
-    }
-
-    private void initFusedLocation() {
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     private void startLocationCallback(){
@@ -134,32 +132,7 @@ public class SingleGameMapActivity extends AppCompatActivity {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopLocationCallback();
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        startLocationCallback();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-        fusedLocationProviderClient = null;
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        if(fusedLocationProviderClient == null){
-            initFusedLocation();
-        }
-    }
 
     public void clickAction(View view) {
         int id = view.getId();
