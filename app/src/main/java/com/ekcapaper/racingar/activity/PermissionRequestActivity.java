@@ -24,7 +24,8 @@ public class PermissionRequestActivity extends AppCompatActivity {
     Button button_permission_request;
 
     String[] permissions = new String[]{
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
     @Override
