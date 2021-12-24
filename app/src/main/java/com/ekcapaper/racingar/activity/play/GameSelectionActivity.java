@@ -1,4 +1,4 @@
-package com.ekcapaper.racingar.activity;
+package com.ekcapaper.racingar.activity.play;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +20,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         button_start_flag_game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
             }
         });
     }

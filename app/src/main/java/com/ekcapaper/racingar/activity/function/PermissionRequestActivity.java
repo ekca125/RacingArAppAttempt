@@ -1,4 +1,4 @@
-package com.ekcapaper.racingar.activity;
+package com.ekcapaper.racingar.activity.function;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

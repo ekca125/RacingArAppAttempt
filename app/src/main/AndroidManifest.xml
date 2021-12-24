@@ -21,16 +21,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.ekcapaper.racingar.activity.EmptyActivity"
+            android:name="com.ekcapaper.racingar.activity.testing.EmptyActivity"
             android:exported="false" />
         <activity
-            android:name="com.ekcapaper.racingar.activity.PermissionRequestActivity"
+            android:name="com.ekcapaper.racingar.activity.function.PermissionRequestActivity"
             android:exported="true"></activity>
         <activity
-            android:name="com.ekcapaper.racingar.activity.GameSelectionActivity"
+            android:name="com.ekcapaper.racingar.activity.play.GameSelectionActivity"
             android:exported="false" />
         <activity
-            android:name="com.ekcapaper.racingar.activity.LoginEmailActivity"
+            android:name="com.ekcapaper.racingar.activity.function.LoginEmailActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

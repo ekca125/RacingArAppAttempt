@@ -1,4 +1,4 @@
-package com.ekcapaper.racingar.activity;
+package com.ekcapaper.racingar.activity.testing;
 
 import androidx.appcompat.app.AppCompatActivity;
 

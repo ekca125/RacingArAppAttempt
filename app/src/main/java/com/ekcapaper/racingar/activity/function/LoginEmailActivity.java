@@ -1,4 +1,4 @@
-package com.ekcapaper.racingar.activity;
+package com.ekcapaper.racingar.activity.function;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ekcapaper.racingar.activity.play.GameSelectionActivity;
 import com.ekcapaper.racingar.game.operator.app.GameAppOperator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.ekcapaper.racingar.kit.R;
