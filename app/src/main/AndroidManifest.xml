@@ -27,12 +27,6 @@
             android:name="com.ekcapaper.racingar.activity.PermissionRequestActivity"
             android:exported="true"></activity>
         <activity
-            android:name="com.ekcapaper.racingar.activity.single.SingleGameMapActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name="com.ekcapaper.racingar.activity.single.SingleGamePrepareActivity"
-            android:exported="false" />
-        <activity
             android:name="com.ekcapaper.racingar.activity.GameSelectionActivity"
             android:exported="false" />
         <activity
