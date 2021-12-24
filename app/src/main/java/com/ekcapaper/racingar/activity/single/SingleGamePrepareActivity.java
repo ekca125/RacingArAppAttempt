@@ -26,6 +26,8 @@ import com.ekcapaper.racingar.kit.R;
 import com.ekcapaper.racingar.kit.data.ThisApplication;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.function.Consumer;
+
 public class SingleGamePrepareActivity extends AppCompatActivity {
     // 액티비티 기능
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -82,18 +84,29 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
                     Log.d("locationTest",location.toString());
                     if (location != null) {
                         fusedLocationProviderClient.removeLocationUpdates(locationRequestCallback);
-                        /*
-                        gameAppOperator.makeSingleRoom(location);
-                        if (gameAppOperator.checkCurrentGameRoomOperator()) {
-                            Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
-                            // next activity
-                            Intent intent = new Intent(SingleGamePrepareActivity.this, EmptyActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
-                        }
-
-                         */
+                        gameAppOperator.makeSingleRoom(location, new Consumer<Void>() {
+                            @Override
+                            public void accept(Void unused) {
+                                if (gameAppOperator.checkCurrentGameRoomOperator()) {
+                                    SingleGamePrepareActivity.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
+                                            // next activity
+                                            Intent intent = new Intent(SingleGamePrepareActivity.this, EmptyActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                } else {
+                                    SingleGamePrepareActivity.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }
+                        });
                     }
                 }
             }

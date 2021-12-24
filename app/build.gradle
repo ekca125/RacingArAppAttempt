@@ -86,6 +86,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     implementation 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
 }
 
 // test framework

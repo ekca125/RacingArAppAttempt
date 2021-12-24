@@ -7,13 +7,19 @@ import com.ekcapaper.racingar.game.operator.room.FlagGameRoomOperator;
 import com.ekcapaper.racingar.game.operator.room.GameRoomOperator;
 import com.ekcapaper.racingar.nakama.NakamaNetworkManager;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 public class GameAppOperator extends NakamaNetworkManager {
     private GameRoomOperator currentGameRoomOperator;
+    private ExecutorService executorService;
 
     public GameAppOperator() {
         super();
+        executorService = Executors.newCachedThreadPool();
     }
 
     public boolean checkCurrentGameRoomOperator(){
@@ -25,22 +31,28 @@ public class GameAppOperator extends NakamaNetworkManager {
         currentGameRoomOperator = null;
     }
 
-    public void makeSingleRoom(Location location) {
-        FlagGameBoard flagGameBoard = new FlagGameBoard(1,location);
-        flagGameBoard.drawFlags();
-        if(flagGameBoard.isDrew()){
-            FlagGameRoomOperator flagGameRoomOperator = new FlagGameRoomOperator(session, socketClient, flagGameBoard);
-            try {
-                flagGameRoomOperator.createMatch();
-                currentGameRoomOperator = flagGameRoomOperator;
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-                currentGameRoomOperator = null;
+    public void makeSingleRoom(Location location, Consumer<Void> nextExecute) {
+        CompletableFuture.runAsync(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FlagGameBoard flagGameBoard = new FlagGameBoard(1,location);
+                    flagGameBoard.drawFlags();
+                    if(flagGameBoard.isDrew()){
+                        FlagGameRoomOperator flagGameRoomOperator = new FlagGameRoomOperator(session, socketClient, flagGameBoard);
+                        flagGameRoomOperator.createMatch();
+                        currentGameRoomOperator = flagGameRoomOperator;
+                    }
+                    else{
+                        currentGameRoomOperator = null;
+                    }
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                    currentGameRoomOperator = null;
+                }
             }
-        }
-        else{
-            currentGameRoomOperator = null;
-        }
+        },executorService)
+        .thenAccept(nextExecute);
     }
 
     public GameRoomOperator getCurrentGameRoomOperator(){
