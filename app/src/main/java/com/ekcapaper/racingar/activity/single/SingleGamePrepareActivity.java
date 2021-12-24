@@ -81,7 +81,8 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
                 for (Location location : locationResult.getLocations()) {
                     Log.d("locationTest",location.toString());
                     if (location != null) {
-                        //fusedLocationProviderClient.removeLocationUpdates(locationRequestCallback);
+                        fusedLocationProviderClient.removeLocationUpdates(locationRequestCallback);
+                        /*
                         gameAppOperator.makeSingleRoom(location);
                         if (gameAppOperator.checkCurrentGameRoomOperator()) {
                             Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
@@ -91,6 +92,8 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
                         }
+
+                         */
                     }
                 }
             }
