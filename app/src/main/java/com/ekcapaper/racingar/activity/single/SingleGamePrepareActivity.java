@@ -7,6 +7,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,7 +15,7 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.ekcapaper.racingar.activity.MainActivity;
+import com.ekcapaper.racingar.activity.EmptyActivity;
 import com.ekcapaper.racingar.game.operator.app.GameAppOperator;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -23,6 +24,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.ekcapaper.racingar.kit.R;
 import com.ekcapaper.racingar.kit.data.ThisApplication;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class SingleGamePrepareActivity extends AppCompatActivity {
     // 액티비티 기능
@@ -30,8 +32,9 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
     private GameAppOperator gameAppOperator;
     // ui
     ProgressBar single_game_prepare_progress_indeterminate_circular;
-    //
-    LocationCallback locationCallback;
+    // 위치 갱신 요청
+    LocationRequest locationRequest;
+    LocationCallback locationRequestCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
                 findViewById(R.id.single_game_prepare_progress_indeterminate_circular);
 
         runProgressDeterminateCircular();
-        //runPrepareProgress();
+        runPrepareProgress();
     }
 
     private void runProgressDeterminateCircular() {
@@ -71,7 +74,7 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
                 Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
                 //fusedLocationProviderClient.removeLocationUpdates(locationCallback);
                 // next activity
-                Intent intent = new Intent(SingleGamePrepareActivity.this, MainActivity.class);
+                Intent intent = new Intent(SingleGamePrepareActivity.this, EmptyActivity.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
@@ -80,25 +83,38 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
     }
 
     private void runPrepareProgress() {
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest = LocationRequest.create();
         locationRequest.setInterval(1000);
-        locationCallback = new LocationCallback() {
+        locationRequest.setFastestInterval(1000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        locationRequestCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                Location location = locationResult.getLastLocation();
-                runPrepare(location);
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    if (location != null) {
+                        Log.d("locationTest",location.toString());
+                    }
+                }
             }
         };
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         fusedLocationProviderClient.requestLocationUpdates(
                 locationRequest,
-                locationCallback,
+                locationRequestCallback,
                 Looper.getMainLooper());
     }
 }
