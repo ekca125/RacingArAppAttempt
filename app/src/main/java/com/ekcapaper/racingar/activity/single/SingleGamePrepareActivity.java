@@ -66,22 +66,6 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
         mHandler.post(runnable);
     }
 
-    private void runPrepare(Location location) {
-        if (location != null) {
-            gameAppOperator.makeSingleRoom(location);
-            Log.d("testetst", "abcd");
-            if (gameAppOperator.checkCurrentGameRoomOperator()) {
-                Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
-                //fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-                // next activity
-                Intent intent = new Intent(SingleGamePrepareActivity.this, EmptyActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
     private void runPrepareProgress() {
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(1000);
@@ -95,8 +79,18 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
                     return;
                 }
                 for (Location location : locationResult.getLocations()) {
+                    Log.d("locationTest",location.toString());
                     if (location != null) {
-                        Log.d("locationTest",location.toString());
+                        //fusedLocationProviderClient.removeLocationUpdates(locationRequestCallback);
+                        gameAppOperator.makeSingleRoom(location);
+                        if (gameAppOperator.checkCurrentGameRoomOperator()) {
+                            Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
+                            // next activity
+                            Intent intent = new Intent(SingleGamePrepareActivity.this, EmptyActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
