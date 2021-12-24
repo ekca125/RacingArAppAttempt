@@ -3,9 +3,11 @@ package com.ekcapaper.racingar.kit.activity.dialog;
 import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;

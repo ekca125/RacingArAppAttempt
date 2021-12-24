@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 
 public class NakamaNetworkManagerTest {
     static NakamaNetworkManager nakamaNetworkManager;
+
     @BeforeClass
     public static void initManager() throws ExecutionException, InterruptedException {
         String email = "abcd@gmail.com";
@@ -16,8 +17,10 @@ public class NakamaNetworkManagerTest {
 
         nakamaNetworkManager = new NakamaNetworkManager();
         nakamaNetworkManager.makeClient();
-        nakamaNetworkManager.makeSession(email,password);
-        nakamaNetworkManager.makeSocketClient(()->{},()->{});
+        nakamaNetworkManager.makeSession(email, password);
+        nakamaNetworkManager.makeSocketClient(() -> {
+        }, () -> {
+        });
     }
 
     @Test

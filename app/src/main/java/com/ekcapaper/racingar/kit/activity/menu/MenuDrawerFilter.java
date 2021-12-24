@@ -2,12 +2,15 @@ package com.ekcapaper.racingar.kit.activity.menu;
 
 import android.os.Bundle;
 import android.os.Handler;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 
 import com.ekcapaper.racingar.kit.R;

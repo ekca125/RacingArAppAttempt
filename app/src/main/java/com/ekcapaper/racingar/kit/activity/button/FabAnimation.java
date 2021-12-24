@@ -48,7 +48,7 @@ public class FabAnimation extends AppCompatActivity {
         extendedFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(extendedFab.isExtended()){
+                if (extendedFab.isExtended()) {
                     extendedFab.shrink();
                 } else {
                     extendedFab.extend();
@@ -61,7 +61,7 @@ public class FabAnimation extends AppCompatActivity {
         new Handler(this.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(extendedFab.isExtended()){
+                if (extendedFab.isExtended()) {
                     extendedFab.shrink();
                 } else {
                     extendedFab.extend();

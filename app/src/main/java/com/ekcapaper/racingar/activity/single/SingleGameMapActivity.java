@@ -53,17 +53,16 @@ public class SingleGameMapActivity extends AppCompatActivity {
         // system bar
         Tools.setSystemBarColor(this, R.color.colorPrimary);
         // 액티비티 기능
-        gameAppOperator = ((ThisApplication)getApplicationContext()).getGameAppOperator();
-        if(gameAppOperator.checkCurrentGameRoomOperator()){
+        gameAppOperator = ((ThisApplication) getApplicationContext()).getGameAppOperator();
+        if (gameAppOperator.checkCurrentGameRoomOperator()) {
             flagGameRoomOperator = (FlagGameRoomOperator) gameAppOperator.getCurrentGameRoomOperator();
-        }
-        else{
-            Toast.makeText(this,"오류 : 정상적인 접근이 아닙니다.",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "오류 : 정상적인 접근이 아닙니다.", Toast.LENGTH_SHORT).show();
             finish();
         }
         initMapFragment();
     }
-    
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -85,7 +84,7 @@ public class SingleGameMapActivity extends AppCompatActivity {
                 map_single_game.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.541, 126.986), 13));
                 // 위치 기능 시작
                 fusedLocationProviderClient = new FusedLocationProviderClient(SingleGameMapActivity.this);
-                locationCallback = new LocationCallback(){
+                locationCallback = new LocationCallback() {
                     @Override
                     public void onLocationResult(LocationResult locationResult) {
                         super.onLocationResult(locationResult);
@@ -111,7 +110,7 @@ public class SingleGameMapActivity extends AppCompatActivity {
         });
     }
 
-    private void startLocationCallback(){
+    private void startLocationCallback() {
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         // 1초 마다
@@ -128,10 +127,9 @@ public class SingleGameMapActivity extends AppCompatActivity {
                 Looper.getMainLooper());
     }
 
-    private void stopLocationCallback(){
+    private void stopLocationCallback() {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback);
     }
-
 
 
     public void clickAction(View view) {

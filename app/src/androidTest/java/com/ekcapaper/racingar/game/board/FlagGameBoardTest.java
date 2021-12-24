@@ -18,7 +18,7 @@ public class FlagGameBoardTest {
         location.setLatitude(latitude);
         location.setLongitude(longitude);
 
-        FlagGameBoard flagGameBoard = new FlagGameBoard(1.0,location);
+        FlagGameBoard flagGameBoard = new FlagGameBoard(1.0, location);
         flagGameBoard.drawFlags();
         assertTrue(flagGameBoard.isDrew());
     }

@@ -21,7 +21,7 @@ public class GameBoard {
         this.mapRange = calculateMapRange();
     }
 
-    private MapRange calculateMapRange(){
+    private MapRange calculateMapRange() {
         double currentLatitude = mapCenter.getLatitude();
         double currentLongitude = mapCenter.getLongitude();
 

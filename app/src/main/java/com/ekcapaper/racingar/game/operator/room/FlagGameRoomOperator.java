@@ -19,6 +19,7 @@ import lombok.Setter;
 
 public class FlagGameRoomOperator extends GameRoomOperator {
     private FlagGameBoard flagGameBoard;
+
     public FlagGameRoomOperator(Session session, SocketClient socketClient, FlagGameBoard flagGameBoard) {
         super(session, socketClient);
         this.flagGameBoard = flagGameBoard;
@@ -28,21 +29,21 @@ public class FlagGameRoomOperator extends GameRoomOperator {
     private Consumer<Object> afterPlayerMoveCallback;
 
     // 오퍼레이터에서 처리해야할 내용
-    public void startReceiveMessageCallback(){
-        if(afterPlayerMoveCallback == null){
+    public void startReceiveMessageCallback() {
+        if (afterPlayerMoveCallback == null) {
             throw new NullPointerException();
         }
 
         SocketListener listener = new AbstractSocketListener() {
             @Override
             public void onMatchData(final MatchData matchData) {
-                switch ((int) matchData.getOpCode()){
+                switch ((int) matchData.getOpCode()) {
                     case MessageOpCodeStorage.MOVE_PLAYER_MESSAGE:
                         Gson gson = new Gson();
                         String json = new String(matchData.getData(), StandardCharsets.UTF_8);
-                        MovePlayerMessage movePlayerMessage = gson.fromJson(json,MovePlayerMessage.class);
+                        MovePlayerMessage movePlayerMessage = gson.fromJson(json, MovePlayerMessage.class);
 
-                        flagGameBoard.movePlayer(movePlayerMessage.getUserIdentifier(),movePlayerMessage.getLocation());
+                        flagGameBoard.movePlayer(movePlayerMessage.getUserIdentifier(), movePlayerMessage.getLocation());
                         afterPlayerMoveCallback.accept(movePlayerMessage);
                         break;
                     default:
@@ -50,7 +51,7 @@ public class FlagGameRoomOperator extends GameRoomOperator {
                 }
             }
         };
-        socketClient.connect(session,listener);
+        socketClient.connect(session, listener);
     }
 
 }

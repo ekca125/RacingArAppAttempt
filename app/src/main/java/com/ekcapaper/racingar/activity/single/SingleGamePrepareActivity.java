@@ -74,19 +74,19 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
         locationRequest.setFastestInterval(3600);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        locationRequestCallback = new LocationCallback(){
+        locationRequestCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 if (locationResult == null) {
                     return;
                 }
-                for (Location location : locationResult.getLocations()){
+                for (Location location : locationResult.getLocations()) {
                     gameAppOperator.makeSingleRoom(location, new Consumer<Void>() {
                         @Override
                         public void accept(Void unused) {
                             // 방을 만든 후에 진행될 내용
-                            if (gameAppOperator.checkCurrentGameRoomOperator()){
-                                SingleGamePrepareActivity.this.runOnUiThread(()->{
+                            if (gameAppOperator.checkCurrentGameRoomOperator()) {
+                                SingleGamePrepareActivity.this.runOnUiThread(() -> {
                                     fusedLocationProviderClient.removeLocationUpdates(locationRequestCallback);
                                     Intent intent = new Intent(SingleGamePrepareActivity.this, EmptyActivity.class);
                                     startActivity(intent);

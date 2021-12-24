@@ -61,7 +61,9 @@ public class ContainerTransformConfigurationHelper {
         transform.setDrawDebugEnabled(isDrawDebugEnabled());
     }
 
-    /** Set up the platform transition according to the config helper's parameters. */
+    /**
+     * Set up the platform transition according to the config helper's parameters.
+     */
     @RequiresApi(VERSION_CODES.LOLLIPOP)
     public void configure(com.google.android.material.transition.platform.MaterialContainerTransform transform, boolean entering) {
         long duration = entering ? getEnterDuration() : getReturnDuration();
@@ -105,6 +107,7 @@ public class ContainerTransformConfigurationHelper {
     Interpolator getInterpolator() {
         return interpolator;
     }
+
     /**
      * Whether or not the custom transform should draw debugging lines.
      */

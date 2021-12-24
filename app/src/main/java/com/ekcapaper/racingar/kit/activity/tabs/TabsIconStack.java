@@ -2,7 +2,9 @@ package com.ekcapaper.racingar.kit.activity.tabs;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;

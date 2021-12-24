@@ -2,10 +2,12 @@ package com.ekcapaper.racingar.kit.activity.sliderimage;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.ekcapaper.racingar.kit.model.Image;
 import com.ekcapaper.racingar.kit.utils.Tools;
 
 import java.util.List;
+
 public class SliderSnapFull extends AppCompatActivity {
 
     @Override

@@ -30,7 +30,7 @@ public class BackdropSteppers extends AppCompatActivity {
 
     private void initToolbar() {
         Tools.setSystemBarColor(this, R.color.deep_purple_700);
-        ImageView action_menu =  findViewById(R.id.action_menu);
+        ImageView action_menu = findViewById(R.id.action_menu);
 
         backdropAnimation = new BackdropViewAnimation(this, findViewById(R.id.backdrop_view), findViewById(R.id.content));
         backdropAnimation.addStateListener(new BackdropViewAnimation.StateListener() {

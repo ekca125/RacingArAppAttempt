@@ -1,6 +1,6 @@
 package com.ekcapaper.racingar.maptool;
 
-public class MeterToLongitudeConverter extends MeterConverter{
+public class MeterToLongitudeConverter extends MeterConverter {
     // 근사값
     // 위도 1분 = 111.32 km
     // 경도 1분 = 40075 km * cos( latitude ) / 360
@@ -16,15 +16,18 @@ public class MeterToLongitudeConverter extends MeterConverter{
     final private double longitudeOneSecondKiloMeter;
     final private double longitudeOneSecondMeter;
 
-    public MeterToLongitudeConverter(double latitude){
+    public MeterToLongitudeConverter(double latitude) {
         longitudeOneMinuteKiloMeter = Math.abs(40075 * Math.cos(latitude) / 360);
         longitudeOneMinuteMeter = convertKilometerToMeter(longitudeOneMinuteKiloMeter);
         longitudeOneSecondKiloMeter = longitudeOneMinuteKiloMeter / 3600;
         longitudeOneSecondMeter = convertKilometerToMeter(longitudeOneSecondKiloMeter);
     }
 
-    public double convertMeterToLongitude(double meter){
+    public double convertMeterToLongitude(double meter) {
         return meter * longitudeOneSecondMeter;
     }
-    public double convertKilometerToLongitude(double kilometer) { return kilometer * longitudeOneSecondKiloMeter;}
+
+    public double convertKilometerToLongitude(double kilometer) {
+        return kilometer * longitudeOneSecondKiloMeter;
+    }
 }

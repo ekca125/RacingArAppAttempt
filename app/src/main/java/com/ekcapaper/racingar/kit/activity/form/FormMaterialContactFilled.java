@@ -27,10 +27,10 @@ public class FormMaterialContactFilled extends AppCompatActivity {
         Tools.setSystemBarColor(this);
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, new String[]{"+12", "+14", "+15"});
-        ((AutoCompleteTextView)findViewById(R.id.dropdown_area)).setAdapter(adapter);
+        ((AutoCompleteTextView) findViewById(R.id.dropdown_area)).setAdapter(adapter);
 
         ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, new String[]{"CA", "NY", "AL", "VA", "OH", "KS"});
-        ((AutoCompleteTextView)findViewById(R.id.dropdown_state)).setAdapter(adapter2);
+        ((AutoCompleteTextView) findViewById(R.id.dropdown_state)).setAdapter(adapter2);
     }
 
     @Override

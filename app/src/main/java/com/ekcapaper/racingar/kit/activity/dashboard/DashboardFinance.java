@@ -2,7 +2,9 @@ package com.ekcapaper.racingar.kit.activity.dashboard;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.core.widget.NestedScrollView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -62,7 +64,7 @@ public class DashboardFinance extends AppCompatActivity {
         Tools.setSystemBarLight(this);
     }
 
-    private void onTabClicked(TabLayout.Tab tab){
+    private void onTabClicked(TabLayout.Tab tab) {
         switch (tab.getPosition()) {
             case 0:
                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();

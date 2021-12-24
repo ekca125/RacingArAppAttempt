@@ -2,10 +2,13 @@ package com.ekcapaper.racingar.kit.activity.timeline;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.core.widget.NestedScrollView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -51,6 +54,7 @@ public class TimelineTwitter extends AppCompatActivity {
     }
 
     boolean isFabHide = false;
+
     private void animateFab(final boolean hide) {
         FloatingActionButton fab_add = (FloatingActionButton) findViewById(R.id.fab_add);
         if (isFabHide && hide || !isFabHide && !hide) return;

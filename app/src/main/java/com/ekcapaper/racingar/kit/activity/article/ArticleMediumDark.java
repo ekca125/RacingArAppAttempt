@@ -1,10 +1,14 @@
 package com.ekcapaper.racingar.kit.activity.article;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.core.widget.NestedScrollView;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,6 +20,7 @@ import com.ekcapaper.racingar.kit.utils.ViewAnimation;
 public class ArticleMediumDark extends AppCompatActivity {
 
     private FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -22,11 +22,11 @@ public class GameAppOperator extends NakamaNetworkManager {
         executorService = Executors.newCachedThreadPool();
     }
 
-    public boolean checkCurrentGameRoomOperator(){
+    public boolean checkCurrentGameRoomOperator() {
         return currentGameRoomOperator != null;
     }
 
-    public void leaveRoom(){
+    public void leaveRoom() {
         currentGameRoomOperator.leaveRoom();
         currentGameRoomOperator = null;
     }
@@ -43,16 +43,15 @@ public class GameAppOperator extends NakamaNetworkManager {
                 } else {
                     currentGameRoomOperator = null;
                 }
-            }
-            catch (ExecutionException | InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
                 currentGameRoomOperator = null;
             }
         };
-        CompletableFuture.runAsync(makeRoomTask,executorService).thenAccept(nextExecute);
+        CompletableFuture.runAsync(makeRoomTask, executorService).thenAccept(nextExecute);
     }
 
-    public GameRoomOperator getCurrentGameRoomOperator(){
+    public GameRoomOperator getCurrentGameRoomOperator() {
         return currentGameRoomOperator;
     }
 }

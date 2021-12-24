@@ -95,7 +95,7 @@ public class MnAdapter extends ExpandableRecyclerAdapter<MnAdapter.Item> {
             setIdStr();
         }
 
-        private void setIdStr(){
+        private void setIdStr() {
             this.Id_str = Parent + " | " + Text;
         }
     }

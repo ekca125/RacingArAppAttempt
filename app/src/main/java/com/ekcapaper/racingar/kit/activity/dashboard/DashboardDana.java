@@ -1,6 +1,7 @@
 package com.ekcapaper.racingar.kit.activity.dashboard;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ekcapaper.racingar.kit.R;

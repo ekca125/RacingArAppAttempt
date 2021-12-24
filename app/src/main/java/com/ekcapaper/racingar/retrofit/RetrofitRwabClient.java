@@ -10,9 +10,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitRwabClient {
     private static String BASE_URL = "https://rawb.ekcapaper.net";
-    private RetrofitRwabClient(){}
 
-    private static Retrofit getInstance(){
+    private RetrofitRwabClient() {
+    }
+
+    private static Retrofit getInstance() {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -25,7 +27,7 @@ public class RetrofitRwabClient {
 
     }
 
-    public static MapAddressService getMapAddressService(){
+    public static MapAddressService getMapAddressService() {
         return getInstance().create(MapAddressService.class);
     }
 }

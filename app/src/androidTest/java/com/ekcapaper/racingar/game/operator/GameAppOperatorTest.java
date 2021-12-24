@@ -16,6 +16,7 @@ import java.util.function.Consumer;
 
 public class GameAppOperatorTest {
     static GameAppOperator gameAppOperator;
+
     @BeforeClass
     public static void initGame() throws ExecutionException, InterruptedException {
         String email = "abcd@gmail.com";
@@ -23,8 +24,10 @@ public class GameAppOperatorTest {
 
         gameAppOperator = new GameAppOperator();
         gameAppOperator.makeClient();
-        gameAppOperator.makeSession(email,password);
-        gameAppOperator.makeSocketClient(()->{},()->{});
+        gameAppOperator.makeSession(email, password);
+        gameAppOperator.makeSocketClient(() -> {
+        }, () -> {
+        });
     }
 
     @Test

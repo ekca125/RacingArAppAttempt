@@ -1,6 +1,7 @@
 package com.ekcapaper.racingar.kit.helper;
 
 import android.graphics.Canvas;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;

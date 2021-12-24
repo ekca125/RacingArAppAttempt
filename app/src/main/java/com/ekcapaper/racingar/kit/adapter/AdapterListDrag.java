@@ -1,8 +1,10 @@
 package com.ekcapaper.racingar.kit.adapter;
 
 import android.content.Context;
+
 import androidx.core.view.MotionEventCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;

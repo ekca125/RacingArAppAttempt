@@ -27,7 +27,7 @@ public class LoginEmailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_email);
 
-        gameAppOperator = ((ThisApplication)getApplication()).getGameAppOperator();
+        gameAppOperator = ((ThisApplication) getApplication()).getGameAppOperator();
 
         text_input_login_email = findViewById(R.id.text_input_login_email);
         text_input_login_password = findViewById(R.id.text_input_login_password);
@@ -45,20 +45,20 @@ public class LoginEmailActivity extends AppCompatActivity {
         });
     }
 
-    private void requestLogin(String email, String password){
+    private void requestLogin(String email, String password) {
         try {
             gameAppOperator.loginEmail(email, password);
-            Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(LoginEmailActivity.this, GameSelectionActivity.class);
             startActivity(intent);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-            Toast.makeText(this,"Login Failed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void stubLogin(){
+    private void stubLogin() {
         text_input_login_email.setText("abcd@example.com");
         text_input_login_password.setText("abcd1234");
     }

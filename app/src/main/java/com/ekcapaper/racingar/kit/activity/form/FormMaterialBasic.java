@@ -29,8 +29,8 @@ public class FormMaterialBasic extends AppCompatActivity {
 
         String[] items = new String[]{"Material", "Design", "Components", "Android"};
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
-        ((AutoCompleteTextView)findViewById(R.id.dropdown1)).setAdapter(adapter);
-        ((AutoCompleteTextView)findViewById(R.id.dropdown2)).setAdapter(adapter);
+        ((AutoCompleteTextView) findViewById(R.id.dropdown1)).setAdapter(adapter);
+        ((AutoCompleteTextView) findViewById(R.id.dropdown2)).setAdapter(adapter);
     }
 
     @Override

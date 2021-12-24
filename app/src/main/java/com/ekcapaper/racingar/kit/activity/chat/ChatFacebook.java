@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -76,7 +78,7 @@ public class ChatFacebook extends AppCompatActivity {
 
     private void sendChat() {
         final String msg = et_content.getText().toString();
-        if(msg.isEmpty()) return;
+        if (msg.isEmpty()) return;
         adapter.insertItem(new Message(adapter.getItemCount(), msg, true, adapter.getItemCount() % 5 == 0, Tools.getFormattedTimeEvent(System.currentTimeMillis())));
         et_content.setText("");
         recycler_view.scrollToPosition(adapter.getItemCount() - 1);

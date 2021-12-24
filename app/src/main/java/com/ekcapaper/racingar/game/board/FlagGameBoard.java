@@ -21,8 +21,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 
-public class FlagGameBoard extends MultiGameBoard{
-    public static class GameFlag{
+public class FlagGameBoard extends MultiGameBoard {
+    public static class GameFlag {
         //userIdentifier
         String owner;
         @Getter
@@ -33,11 +33,11 @@ public class FlagGameBoard extends MultiGameBoard{
             this.location = location;
         }
 
-        public boolean checkOwned(){
+        public boolean checkOwned() {
             return owner != null;
         }
 
-        public void setOwner(String userIdentifier){
+        public void setOwner(String userIdentifier) {
             this.owner = userIdentifier;
         }
 
@@ -45,6 +45,7 @@ public class FlagGameBoard extends MultiGameBoard{
             return owner;
         }
     }
+
     // 50 미터
     private final static double FLAG_GET_DISTANCE = 50;
     private List<GameFlag> gameFlagList;
@@ -53,21 +54,22 @@ public class FlagGameBoard extends MultiGameBoard{
         super(mapLengthKilometer, mapCenter);
     }
 
-    public boolean isDrew(){
+    public boolean isDrew() {
         return gameFlagList != null;
     }
 
-    public void drawFlags(){
-        if(!isDrew()){
+    public void drawFlags() {
+        if (!isDrew()) {
             try {
                 Call<String> call = RetrofitRwabClient
                         .getMapAddressService()
                         .drawMapRangeRandom10(this.getMapRange());
                 Response<String> response = call.execute();
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     String body = response.body();
                     Gson gson = new Gson();
-                    List<AddressDto> addressDtoList = gson.fromJson(body, new TypeToken<ArrayList<AddressDto>>(){}.getType());
+                    List<AddressDto> addressDtoList = gson.fromJson(body, new TypeToken<ArrayList<AddressDto>>() {
+                    }.getType());
                     gameFlagList = addressDtoList.stream()
                             .map(addressDto -> {
                                 Location location = new Location("");
@@ -87,11 +89,11 @@ public class FlagGameBoard extends MultiGameBoard{
     @Override
     public void movePlayer(String userIdentifier, Location location) {
         super.movePlayer(userIdentifier, location);
-        for(int i=0; i<gameFlagList.size();i++){
+        for (int i = 0; i < gameFlagList.size(); i++) {
             GameFlag gameFlag = gameFlagList.get(i);
-            if(!gameFlag.checkOwned()){
+            if (!gameFlag.checkOwned()) {
                 // 소유자가 없는 경우
-                if(gameFlag.getLocation().distanceTo(location) <= FLAG_GET_DISTANCE){
+                if (gameFlag.getLocation().distanceTo(location) <= FLAG_GET_DISTANCE) {
                     // 깃발과의 거리가 일정 이하로 떨어진 경우
                     gameFlag.setOwner(userIdentifier);
                 }
