@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_large"
-                android:text="싱글모드"
+                android:text="깃발모드"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@android:color/white" />
 
@@ -47,7 +47,7 @@
                 android:layout_marginLeft="@dimen/spacing_large"
                 android:layout_marginRight="@dimen/spacing_large"
                 android:layout_marginBottom="@dimen/spacing_large"
-                android:text="개인 맵을 생성하여 플레이합니다."
+                android:text="깃발을 모으는 게임을 시작합니다."
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_10" />
 
@@ -57,7 +57,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button_start_single_game"
+                    android:id="@+id/button_start_flag_game"
                     style="@style/Button.Accent.Borderless.WhiteText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
