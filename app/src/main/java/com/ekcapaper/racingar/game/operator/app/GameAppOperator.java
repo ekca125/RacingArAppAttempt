@@ -1,6 +1,8 @@
 package com.ekcapaper.racingar.game.operator.app;
 
 import android.location.Location;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.ekcapaper.racingar.game.board.FlagGameBoard;
 import com.ekcapaper.racingar.game.operator.room.FlagGameRoomOperator;
@@ -15,11 +17,11 @@ import java.util.function.Consumer;
 
 public class GameAppOperator extends NakamaNetworkManager {
     private GameRoomOperator currentGameRoomOperator;
-    private ExecutorService executorService;
+    private final ExecutorService executorService;
 
     public GameAppOperator() {
         super();
-        executorService = Executors.newCachedThreadPool();
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     public boolean checkCurrentGameRoomOperator() {

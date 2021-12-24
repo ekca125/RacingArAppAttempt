@@ -70,16 +70,13 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
 
     private void runPrepareProgress() {
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(3600);
-        locationRequest.setFastestInterval(3600);
+        locationRequest.setInterval(1000);
+        locationRequest.setFastestInterval(1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         locationRequestCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
                 for (Location location : locationResult.getLocations()) {
                     gameAppOperator.makeSingleRoom(location, new Consumer<Void>() {
                         @Override
