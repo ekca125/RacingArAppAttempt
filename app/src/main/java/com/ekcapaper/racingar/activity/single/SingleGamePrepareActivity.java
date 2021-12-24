@@ -70,45 +70,32 @@ public class SingleGamePrepareActivity extends AppCompatActivity {
 
     private void runPrepareProgress() {
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(1000);
-        locationRequest.setFastestInterval(1000);
+        locationRequest.setInterval(3600);
+        locationRequest.setFastestInterval(3600);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        locationRequestCallback = new LocationCallback() {
+        locationRequestCallback = new LocationCallback(){
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 if (locationResult == null) {
                     return;
                 }
-                for (Location location : locationResult.getLocations()) {
-                    Log.d("locationTest",location.toString());
-                    if (location != null) {
-                        fusedLocationProviderClient.removeLocationUpdates(locationRequestCallback);
-                        gameAppOperator.makeSingleRoom(location, new Consumer<Void>() {
-                            @Override
-                            public void accept(Void unused) {
-                                if (gameAppOperator.checkCurrentGameRoomOperator()) {
-                                    SingleGamePrepareActivity.this.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(SingleGamePrepareActivity.this, "Start Game", Toast.LENGTH_SHORT).show();
-                                            // next activity
-                                            Intent intent = new Intent(SingleGamePrepareActivity.this, EmptyActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    });
-                                } else {
-                                    SingleGamePrepareActivity.this.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(SingleGamePrepareActivity.this, "Make Room Failed", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
+                for (Location location : locationResult.getLocations()){
+                    gameAppOperator.makeSingleRoom(location, new Consumer<Void>() {
+                        @Override
+                        public void accept(Void unused) {
+                            // 방을 만든 후에 진행될 내용
+                            if (gameAppOperator.checkCurrentGameRoomOperator()){
+                                SingleGamePrepareActivity.this.runOnUiThread(()->{
+                                    fusedLocationProviderClient.removeLocationUpdates(locationRequestCallback);
+                                    Intent intent = new Intent(SingleGamePrepareActivity.this, EmptyActivity.class);
+                                    startActivity(intent);
+                                });
                             }
-                        });
-                    }
+                        }
+                    });
                 }
+
             }
         };
 

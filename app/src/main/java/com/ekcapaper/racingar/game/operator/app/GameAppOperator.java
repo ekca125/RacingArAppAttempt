@@ -32,27 +32,24 @@ public class GameAppOperator extends NakamaNetworkManager {
     }
 
     public void makeSingleRoom(Location location, Consumer<Void> nextExecute) {
-        CompletableFuture.runAsync(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    FlagGameBoard flagGameBoard = new FlagGameBoard(1,location);
-                    flagGameBoard.drawFlags();
-                    if(flagGameBoard.isDrew()){
-                        FlagGameRoomOperator flagGameRoomOperator = new FlagGameRoomOperator(session, socketClient, flagGameBoard);
-                        flagGameRoomOperator.createMatch();
-                        currentGameRoomOperator = flagGameRoomOperator;
-                    }
-                    else{
-                        currentGameRoomOperator = null;
-                    }
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
+        Runnable makeRoomTask = () -> {
+            try {
+                FlagGameBoard flagGameBoard = new FlagGameBoard(1, location);
+                flagGameBoard.drawFlags();
+                if (flagGameBoard.isDrew()) {
+                    FlagGameRoomOperator flagGameRoomOperator = new FlagGameRoomOperator(session, socketClient, flagGameBoard);
+                    flagGameRoomOperator.createMatch();
+                    currentGameRoomOperator = flagGameRoomOperator;
+                } else {
                     currentGameRoomOperator = null;
                 }
             }
-        },executorService)
-        .thenAccept(nextExecute);
+            catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+                currentGameRoomOperator = null;
+            }
+        };
+        CompletableFuture.runAsync(makeRoomTask,executorService).thenAccept(nextExecute);
     }
 
     public GameRoomOperator getCurrentGameRoomOperator(){
