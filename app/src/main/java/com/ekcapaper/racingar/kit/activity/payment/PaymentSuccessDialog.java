@@ -2,11 +2,13 @@ package com.ekcapaper.racingar.kit.activity.payment;
 
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;

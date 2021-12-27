@@ -3,11 +3,14 @@ package com.ekcapaper.racingar.kit.fragment;
 import android.app.Dialog;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;

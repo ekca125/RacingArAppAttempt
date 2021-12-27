@@ -1,7 +1,9 @@
 package com.ekcapaper.racingar.kit.activity.payment;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.MenuItem;
@@ -26,7 +28,7 @@ public class PaymentForm extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Tools.setSystemBarColor(this);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

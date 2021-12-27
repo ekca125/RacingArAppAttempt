@@ -115,6 +115,7 @@ public class CheckboxParentChild extends AppCompatActivity {
             return CheckBoxState.INDETERMINATE;
         }
     }
+
     private void toggleSectionText(View view) {
         boolean show = Tools.toggleArrow(view);
         if (!show) {

@@ -3,9 +3,11 @@ package com.ekcapaper.racingar.kit.activity.stepper;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

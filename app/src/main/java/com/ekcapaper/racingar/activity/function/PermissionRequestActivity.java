@@ -1,4 +1,4 @@
-package com.ekcapaper.racingar.activity;
+package com.ekcapaper.racingar.activity.function;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,18 +52,17 @@ public class PermissionRequestActivity extends AppCompatActivity {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void permissionFunction(){
+    private void permissionFunction() {
         if (EasyPermissions.hasPermissions(this, permissions)) {
             permissionGranted();
-        }
-        else{
+        } else {
             EasyPermissions.requestPermissions(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION.toString(),
                     LOCATION_PERMISSON_REQUEST_CODE, permissions);
         }
     }
 
-    protected void permissionGranted(){
-        Toast.makeText(this,"permission granted",Toast.LENGTH_SHORT).show();
+    protected void permissionGranted() {
+        Toast.makeText(this, "permission granted", Toast.LENGTH_SHORT).show();
     }
 }

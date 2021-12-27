@@ -2,12 +2,15 @@ package com.ekcapaper.racingar.kit.activity.search;
 
 import android.content.Context;
 import android.os.Handler;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -28,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchStore extends AppCompatActivity {
-    
+
     private ViewPager view_pager;
     private TabLayout tab_layout;
     private EditText et_search;

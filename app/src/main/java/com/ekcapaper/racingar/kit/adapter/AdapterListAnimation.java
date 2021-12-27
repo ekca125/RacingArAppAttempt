@@ -1,7 +1,9 @@
 package com.ekcapaper.racingar.kit.adapter;
 
 import android.content.Context;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

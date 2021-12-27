@@ -2,8 +2,10 @@ package com.ekcapaper.racingar.kit.activity.progressactivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -110,11 +112,11 @@ public class ProgressBasic extends AppCompatActivity {
                 } else {
                     int progress = progress_indeterminate_determinate.getProgress() + 20;
                     progress_indeterminate_determinate.setProgress(progress);
-                    if (progress > 100 ) {
+                    if (progress > 100) {
                         progress_indeterminate_determinate.setProgress(0);
                         progress_indeterminate_determinate.setIndeterminate(true);
                         mHandler.postDelayed(this, 4000);
-                    }else {
+                    } else {
                         mHandler.postDelayed(this, 1000);
                     }
                 }

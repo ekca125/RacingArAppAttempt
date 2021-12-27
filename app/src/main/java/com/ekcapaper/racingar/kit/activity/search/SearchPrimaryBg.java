@@ -5,9 +5,12 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +51,7 @@ public class SearchPrimaryBg extends AppCompatActivity {
     private void initComponent() {
         et_search = (EditText) findViewById(R.id.et_search);
         progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
-        progress_bar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN );
+        progress_bar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
         et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {

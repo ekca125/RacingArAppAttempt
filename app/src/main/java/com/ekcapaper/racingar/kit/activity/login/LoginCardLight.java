@@ -1,8 +1,11 @@
 package com.ekcapaper.racingar.kit.activity.login;
 
 import android.os.Bundle;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 
 import com.ekcapaper.racingar.kit.R;
@@ -11,7 +14,7 @@ import com.ekcapaper.racingar.kit.utils.Tools;
 public class LoginCardLight extends AppCompatActivity {
 
     private View parent_view;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

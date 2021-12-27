@@ -1,7 +1,9 @@
 package com.ekcapaper.racingar.kit.adapter;
 
 import android.content.Context;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +93,7 @@ public class AdapterListExpand extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
             // void recycling view
-            if(p.expanded){
+            if (p.expanded) {
                 view.lyt_expand.setVisibility(View.VISIBLE);
             } else {
                 view.lyt_expand.setVisibility(View.GONE);

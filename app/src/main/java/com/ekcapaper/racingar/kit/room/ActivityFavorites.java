@@ -73,7 +73,7 @@ public class ActivityFavorites extends AppCompatActivity {
             @Override
             public void onItemClick(View view, Item obj, int position) {
                 Item new_obj = MenuGenerator.getItemById(obj.Id_str);
-                if(new_obj != null && new_obj.Act != null){
+                if (new_obj != null && new_obj.Act != null) {
                     startActivity(new Intent(ActivityFavorites.this, new_obj.Act));
                 } else {
                     Toast.makeText(getApplicationContext(), "Failed when open page", Toast.LENGTH_SHORT).show();

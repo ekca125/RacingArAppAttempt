@@ -49,7 +49,7 @@
             app:itemTextAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:itemTextColor="@color/grey_300"
             app:menu="@menu/menu_navigation_drawer_news"
-            app:theme="@style/Drawer.Custom.Dark"/>
+            app:theme="@style/Drawer.Custom.Dark" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

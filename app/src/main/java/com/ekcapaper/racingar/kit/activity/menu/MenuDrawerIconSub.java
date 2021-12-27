@@ -126,7 +126,7 @@ public class MenuDrawerIconSub extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(!isHide){
+        if (!isHide) {
             hideMenu(nav_view, main_content);
         } else {
             super.onBackPressed();

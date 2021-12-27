@@ -1,8 +1,10 @@
 package com.ekcapaper.racingar.kit.activity.profile;
 
 import android.os.Bundle;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+
 import androidx.core.view.ViewCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

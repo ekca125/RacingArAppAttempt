@@ -139,7 +139,7 @@ public class MenuDrawerBackIcon extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(!isHide){
+        if (!isHide) {
             hideMenu(content_view);
         } else {
             super.onBackPressed();

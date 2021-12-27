@@ -44,7 +44,7 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
 
     // google maps library ------------------------------------------------------------------------
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.0.1'
     implementation('com.google.android.libraries.places:places:1.0.0') {
         exclude module: 'glide'
     }
@@ -86,6 +86,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     implementation 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
 }
 
 // test framework

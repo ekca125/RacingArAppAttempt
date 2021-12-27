@@ -1,4 +1,4 @@
-package com.ekcapaper.racingar.game.operator;
+package com.ekcapaper.racingar.game.operator.room;
 
 import android.location.Location;
 
@@ -38,17 +38,17 @@ public abstract class GameRoomOperator {
 
     }
 
-    public String getMatchId(){
+    public String getMatchId() {
         return match.getMatchId();
     }
 
-    public void leaveRoom(){
+    public void leaveRoom() {
         socketClient.leaveMatch(match.getMatchId());
         socketClient = null;
         match = null;
     }
 
-    public void sendPlayerMoveMessage(Location location){
+    public void sendPlayerMoveMessage(Location location) {
         String username = session.getUsername();
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
@@ -62,7 +62,8 @@ public abstract class GameRoomOperator {
         Gson gson = new Gson();
         String payload = gson.toJson(movePlayerMessage);
 
-        socketClient.sendMatchData(match.getMatchId(),MessageOpCodeStorage.MOVE_PLAYER_MESSAGE,payload.getBytes(StandardCharsets.UTF_8));
+        socketClient.sendMatchData(match.getMatchId(), MessageOpCodeStorage.MOVE_PLAYER_MESSAGE, payload.getBytes(StandardCharsets.UTF_8));
     }
+
     abstract public void startReceiveMessageCallback();
 }

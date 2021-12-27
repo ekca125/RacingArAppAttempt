@@ -1,7 +1,9 @@
 package com.ekcapaper.racingar.kit.adapter;
 
 import android.content.Context;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +107,7 @@ public class AdapterListSectioned extends RecyclerView.Adapter<RecyclerView.View
         return this.items.get(position).section ? VIEW_SECTION : VIEW_ITEM;
     }
 
-    public void insertItem(int index, People people){
+    public void insertItem(int index, People people) {
         items.add(index, people);
         notifyItemInserted(index);
     }

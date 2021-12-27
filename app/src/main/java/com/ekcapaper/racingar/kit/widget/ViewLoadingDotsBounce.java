@@ -8,7 +8,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+
 import androidx.annotation.Nullable;
+
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -20,7 +22,7 @@ import android.widget.LinearLayout;
  * EXAMPLE :
  * android:layout_width="50dp"
  * android:layout_height="30dp"
- *
+ * <p>
  * To change dot color you can use :
  * android:background="@color/exampleColor"
  */

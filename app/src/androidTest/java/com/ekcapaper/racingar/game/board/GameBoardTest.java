@@ -24,8 +24,8 @@ public class GameBoardTest {
         GameBoard gameBoard = new GameBoard(1.0, location);
         Log.d("abcd", gameBoard.getMapRange().toString());
         MapRange mapRange = gameBoard.getMapRange();
-        assertTrue(mapRange.getStartLatitude()<mapRange.getEndLatitude());
-        assertTrue(mapRange.getStartLongitude()<mapRange.getEndLongitude());
+        assertTrue(mapRange.getStartLatitude() < mapRange.getEndLatitude());
+        assertTrue(mapRange.getStartLongitude() < mapRange.getEndLongitude());
     }
 
 }

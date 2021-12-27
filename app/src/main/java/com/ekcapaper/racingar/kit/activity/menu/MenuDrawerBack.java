@@ -103,7 +103,7 @@ public class MenuDrawerBack extends AppCompatActivity {
         isHide = false;
         view.animate()
                 .scaleX(0.9f).scaleY(0.9f)
-                .translationX(view.getWidth()/2f)
+                .translationX(view.getWidth() / 2f)
                 .setDuration(300)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
@@ -135,7 +135,7 @@ public class MenuDrawerBack extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(!isHide){
+        if (!isHide) {
             hideMenu(content_view);
         } else {
             super.onBackPressed();

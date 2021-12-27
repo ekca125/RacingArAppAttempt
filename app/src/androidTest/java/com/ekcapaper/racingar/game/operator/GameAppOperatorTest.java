@@ -3,9 +3,10 @@ package com.ekcapaper.racingar.game.operator;
 import static org.junit.Assert.*;
 
 import android.location.Location;
-import android.util.Log;
 
 import com.ekcapaper.racingar.game.message.MovePlayerMessage;
+import com.ekcapaper.racingar.game.operator.app.GameAppOperator;
+import com.ekcapaper.racingar.game.operator.room.FlagGameRoomOperator;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import java.util.function.Consumer;
 
 public class GameAppOperatorTest {
     static GameAppOperator gameAppOperator;
+
     @BeforeClass
     public static void initGame() throws ExecutionException, InterruptedException {
         String email = "abcd@gmail.com";
@@ -22,8 +24,10 @@ public class GameAppOperatorTest {
 
         gameAppOperator = new GameAppOperator();
         gameAppOperator.makeClient();
-        gameAppOperator.makeSession(email,password);
-        gameAppOperator.makeSocketClient(()->{},()->{});
+        gameAppOperator.makeSession(email, password);
+        gameAppOperator.makeSocketClient(() -> {
+        }, () -> {
+        });
     }
 
     @Test
@@ -54,20 +58,20 @@ public class GameAppOperatorTest {
         boolean check = gameAppOperator.checkCurrentGameRoomOperator();
         assertTrue(check);
 
-        SingleGameRoomOperator singleGameRoomOperator = (SingleGameRoomOperator) gameAppOperator.getCurrentGameRoomOperator();
+        FlagGameRoomOperator flagGameRoomOperator = (FlagGameRoomOperator) gameAppOperator.getCurrentGameRoomOperator();
 
-        singleGameRoomOperator.createMatch();
+        flagGameRoomOperator.createMatch();
         boolean check2 = gameAppOperator.checkCurrentGameRoomOperator();
         assertTrue(check2);
 
-        singleGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
+        flagGameRoomOperator.setAfterPlayerMoveCallback(new Consumer<Object>() {
             @Override
             public void accept(Object o) {
                 MovePlayerMessage movePlayerMessage = (MovePlayerMessage) o;
             }
         });
-        singleGameRoomOperator.startReceiveMessageCallback();
-        singleGameRoomOperator.sendPlayerMoveMessage(location);
+        flagGameRoomOperator.startReceiveMessageCallback();
+        flagGameRoomOperator.sendPlayerMoveMessage(location);
     }
 
 }

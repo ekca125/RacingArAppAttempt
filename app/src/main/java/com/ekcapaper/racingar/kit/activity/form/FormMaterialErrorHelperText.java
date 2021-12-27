@@ -45,7 +45,7 @@ public class FormMaterialErrorHelperText extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().trim().length() < 8){
+                if (s.toString().trim().length() < 8) {
                     input_layout_username.setErrorEnabled(true);
                     input_layout_username.setError("Error: at least 8 characters");
                 } else {

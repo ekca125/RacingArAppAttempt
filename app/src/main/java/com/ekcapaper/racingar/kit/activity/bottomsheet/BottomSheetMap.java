@@ -1,10 +1,14 @@
 package com.ekcapaper.racingar.kit.activity.bottomsheet;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;

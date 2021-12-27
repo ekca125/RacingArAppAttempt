@@ -65,9 +65,9 @@
                 android:text="9767 0587 7834"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@color/grey_90"
-                android:textStyle="bold" >
+                android:textStyle="bold">
 
-                <requestFocus/>
+                <requestFocus />
 
             </com.google.android.material.textfield.TextInputEditText>
 

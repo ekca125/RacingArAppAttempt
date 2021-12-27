@@ -1,7 +1,9 @@
 package com.ekcapaper.racingar.kit.widget;
 
 import android.graphics.Rect;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {

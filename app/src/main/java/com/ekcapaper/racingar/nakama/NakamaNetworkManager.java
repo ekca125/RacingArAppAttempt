@@ -15,7 +15,7 @@ public class NakamaNetworkManager {
     protected Session session;
     protected SocketClient socketClient;
 
-    public NakamaNetworkManager(){
+    public NakamaNetworkManager() {
         client = null;
         session = null;
         socketClient = null;
@@ -27,7 +27,7 @@ public class NakamaNetworkManager {
     */
 
     // client
-    public void makeClient(){
+    public void makeClient() {
         this.client = new DefaultClient(
                 KeyStorageNakama.getServerKey(),
                 KeyStorageNakama.getGrpcAddress(),
@@ -35,20 +35,20 @@ public class NakamaNetworkManager {
                 true);
     }
 
-    public boolean checkClient(){
+    public boolean checkClient() {
         return client != null;
     }
 
     // session
     public void makeSession(String email, String password) throws ExecutionException, InterruptedException {
-        this.session = client.authenticateEmail(email,password).get();
+        this.session = client.authenticateEmail(email, password).get();
     }
 
     public void loginEmail(String email, String password) throws ExecutionException, InterruptedException {
         makeSession(email, password);
     }
 
-    public boolean checkSession(){
+    public boolean checkSession() {
         return session != null;
     }
 
@@ -69,11 +69,11 @@ public class NakamaNetworkManager {
         successCallback.run();
     }
 
-    public boolean checkSocketClient(){
+    public boolean checkSocketClient() {
         return socketClient != null;
     }
 
-    public boolean checkOnline(){
+    public boolean checkOnline() {
         return checkClient() && checkSession() && checkSocketClient();
     }
 }
